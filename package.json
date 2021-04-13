@@ -1,0 +1,19 @@
+{
+  "name": "kpclone",
+  "version": "1.0.0",
+  "description": "Backend service for clone of popular e-commerce service in Serbia called KupujemProdajem",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stefi99R/KpClone.git"
+  },
+  "author": "Stefan Radojević",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Stefi99R/KpClone/issues"
+  },
+  "homepage": "https://github.com/Stefi99R/KpClone#readme"
+}
