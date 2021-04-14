@@ -66,7 +66,27 @@ const getAd = async (req, res, next) => {
     }
 };
 
+const storeAd = async (req, res, next) => {
+    const { id } = req.user;
+    try {
+        const { name, description, url, price, category, city } = req.body;
+        const store = await Ad.create({
+            name,
+            description,
+            url,
+            price,
+            category,
+            city,
+            userId: id
+        });
+        res.json(store);
+    } catch (error) {
+        return next(error);
+    }
+};
+
 module.exports = {
     getAds,
-    getAd
+    getAd,
+    storeAd
 }
