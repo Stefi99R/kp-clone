@@ -4,13 +4,13 @@
   "description": "Backend service for clone of popular e-commerce service in Serbia called KupujemProdajem",
   "main": "index.js",
   "scripts": {
-    "create-db": "npx sequelize-cli db:create",
+    "create": "npx sequelize-cli db:create",
     "migrate": "npx sequelize-cli db:migrate",
     "seed": "npx sequelize-cli db:seed:all",
     "reset": "npx sequelize-cli db:migrate:undo:all",
     "start": "node ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "dev": "nodemon ./index.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "faker": "^5.5.3",
+    "helmet": "^4.4.1",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.6.2"

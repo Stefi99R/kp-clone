@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     class Ad extends Model {
 
         static associate(models) {
-            Ad.belongsTo(model.User, {
+            Ad.belongsTo(models.User, {
                 allowNull: false,
                 foreignKey: "userId",
                 targetKey: "id"
@@ -92,4 +92,6 @@ module.exports = (sequelize, DataTypes) => {
             timestamps: true
         }
     );
+
+    return Ad;
 };

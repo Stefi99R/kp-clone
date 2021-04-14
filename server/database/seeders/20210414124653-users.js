@@ -5,7 +5,7 @@ const users = [...Array(10)].map(() => ({
   username: faker.internet.userName(),
   password: faker.internet.password(8),
   phone: faker.phone.phoneNumber(),
-  createAt: new Date(),
+  createdAt: new Date(),
   updatedAt: new Date(),
 }));
 
