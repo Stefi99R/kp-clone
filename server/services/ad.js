@@ -48,4 +48,25 @@ const getAds = async (req, res, next) => {
     } catch (error) {
         return next(error);
     }
+};
+
+const getAd = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const ad = await Ad.findByPk(id, {
+            include: [{
+                model: User,
+                attributes: ['username', 'phone', 'createdAt'],
+            }]
+        });
+
+        res.json(ad);
+    } catch (error) {
+        return next(error);
+    }
+};
+
+module.exports = {
+    getAds,
+    getAd
 }
