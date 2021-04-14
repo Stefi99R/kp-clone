@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const http = require("http");
 const routes = require("./controllers");
 const passport = require("./passport");
+const errorHandler = require("./middlewares/error-handler");
 
 const { sequelize } = require("./database/models");
 
@@ -23,6 +24,8 @@ if (process.env.NODE_ENV !== "production") {
 const server = http.createServer(app);
 
 app.use("/api", routes);
+
+app.use(errorHandler);
 
 if (process.env.NODE_ENV !== "test") {
     sequelize
