@@ -138,10 +138,22 @@ const removeAd = async (req, res, next) => {
     }
 };
 
+const countUp = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const ad = await Ad.increment({count: +1}, { where: {id} });
+
+        res.json(ad);
+    } catch(error) {
+        return next(error);
+    }
+};
+
 module.exports = {
     getAds,
     getAd,
     storeAd,
     updateAd,
-    removeAd
+    removeAd,
+    countUp
 }
