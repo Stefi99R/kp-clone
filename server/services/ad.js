@@ -109,9 +109,39 @@ const updateAd = async (req, res, next) => {
     }
 };
 
+const removeAd = async (req, res, next) => {
+    try {
+        const { id } = req.user;
+        const { id: adId } = req.params;
+        const oldAd = await Ad.findByPk(adId, {
+            include: [{
+                model: User,
+                attributes: ['id']
+            }]
+        });
+        if (oldAd === null) {
+            res.status(400).send({msg: "There is no ad with that id!"});
+        } else if (oldAd.User.id !== id) {
+            res.status(400).send({msg: "This account is not the owner of this ad."});
+        }
+
+        await Ad.destroy({ where: { id: adId }});
+
+        res.json({
+            success: "true",
+            status: "OK",
+            msg: "Ad successfully deleted"
+        });
+
+    } catch (error) {
+        return next(error);
+    }
+};
+
 module.exports = {
     getAds,
     getAd,
     storeAd,
-    updateAd
+    updateAd,
+    removeAd
 }
