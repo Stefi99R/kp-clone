@@ -85,8 +85,33 @@ const storeAd = async (req, res, next) => {
     }
 };
 
+const updateAd = async (req, res, next) => {
+    try {
+        const { id } = req.user;
+        const { id: adId } = req.params;
+        const oldAd = await Ad.findByPk(adId, {
+            include: [{
+                model: User,
+                attributes: ['id']
+            }]
+        });
+        if (oldAd.User.id !== id) {
+            res.status(400).send({msg: "This account is not the owner of this ad"});
+        }
+
+        const updateAd = req.body;
+        const ad = await Ad.update(updateAd, { where: { id: adId }});
+
+        res.json(ad);
+
+    } catch(error) {
+        return next(error);
+    }
+};
+
 module.exports = {
     getAds,
     getAd,
-    storeAd
+    storeAd,
+    updateAd
 }
