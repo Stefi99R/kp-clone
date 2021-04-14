@@ -4,6 +4,10 @@
   "description": "Backend service for clone of popular e-commerce service in Serbia called KupujemProdajem",
   "main": "index.js",
   "scripts": {
+    "create-db": "npx sequelize-cli db:create",
+    "migrate": "npx sequelize-cli db:migrate",
+    "seed": "npx sequelize-cli db:seed:all",
+    "reset": "npx sequelize-cli db:migrate:undo:all",
     "start": "node ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js"
@@ -19,13 +23,15 @@
   },
   "homepage": "https://github.com/Stefi99R/KpClone#readme",
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "sequelize-cli": "^6.2.0"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "faker": "^5.5.3",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.6.2"
