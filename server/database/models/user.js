@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
                 // other validations (like max and min length) can be added, according to someones will 
             },
             password: {
-                allowNull: false,
+                allowNull:true,
                 type: DataTypes.STRING,
                 exclude: true
             },

@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
             /** Name of the product */
             name: {
                 allowNull: false,
-                type: DataTypes.STRING
+                type: DataTypes.TEXT
             },
 
             /** Description of the product */
