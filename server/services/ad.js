@@ -29,7 +29,7 @@ const getAds = async (req, res, next) => {
             sortBy = fn('max', col('price'));
         }
         if (search !== "") {
-            where.name = { [Op.iLike]: '%' + seacrh + '%' }
+            where.name = { [Op.iLike]: '%' + search + '%' }
         }
         
         const ads = await Ad.findAll({
