@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Cookies from 'js-cookies';
+import Cookies from 'js-cookie';
 
 const apiURL = () => 
     `${process.env.REACT_APP_BASE_URL}/api`;
@@ -13,7 +13,7 @@ export const privateApi = axios.create({
 });
 
 export function attachAuthorizationHeader(token) {
-    privateApi.defaults.headers.commom[
+    privateApi.defaults.headers.common[
         'Authorization'
     ] = `Bearer ${token}`.trim();
 };

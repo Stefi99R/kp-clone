@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+//import './App.css';
+import React, { useMemo, useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { routes } from './routes';
+import { NotFound } from './pages/notFound';
+import { UserContext } from './contexts/UserContext';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
-function App() {
+export function App() {
+
+  const [user, setUser] = useState(useState(null));
+  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+
+const queryClient = new QueryClient();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <UserContext.Provider value={value}>
+          <QueryClientProvider client={queryClient}>
+            <Switch>
+            {/* for entered routes */}
+              {routes.map((props, key) => (
+                <Route exact key={key} {...props} />
+              ))}
+              { /* for every route that is not entered */}
+              <Route path="*">
+                <NotFound />
+              </Route>
+            </Switch> 
+          </QueryClientProvider>
+      </UserContext.Provider>
+    </Router>
   );
 }
-
-export default App;

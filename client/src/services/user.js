@@ -9,6 +9,6 @@ export async function fetchUserInfo() {
             return response.data;
         }
     } catch(error) {
-        console.error(err);
+        console.error(error);
     }
 }
