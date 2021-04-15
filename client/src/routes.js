@@ -6,12 +6,19 @@ import { useQuery } from 'react-query';
 import { fetchUserInfo } from './services/user';
 import Cookies from 'js-cookie';
 import { useContext } from 'react';
+import { Ad } from './pages/ad';
 
 export const routes = [
     {
         path: '/',
         render: function AdsRoute() {
             return <PrivateRoute title="Home" component={Ads} />
+        }
+    },
+    {
+        path: "/ad/:id",
+        render: function AdRoute() {
+            return <PrivateRoute title="Home" component={Ad} />
         }
     }
 ];
