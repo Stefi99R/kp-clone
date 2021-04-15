@@ -32,7 +32,7 @@ if (process.env.NODE_ENV !== "test") {
         // check if valid data for postgre database are entered
         .authenticate()
         .then(() => {
-            console.log("Connection has been established successfully.");
+            console.log("Connection to the database has been established successfully.");
         })
         .catch((err) => {
             console.error("Unable to connect to the databaase: ", err);

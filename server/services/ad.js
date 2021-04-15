@@ -15,7 +15,7 @@ const getAds = async (req, res, next) => {
             search = ""
         } = req.query;
         
-        const where = {},
+        const where = {};
         // for filtering
         if (onlyMe !== '') {
             where.userId = onlyMe;
@@ -39,10 +39,9 @@ const getAds = async (req, res, next) => {
             limit,
             include: [{
                 model: User,
-                attributes: ['username', 'phone', 'createdAt'],
+                attributes: ['username', 'phone'],
             }]
         });
-
         res.json(ads);
 
     } catch (error) {

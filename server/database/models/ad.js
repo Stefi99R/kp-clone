@@ -69,7 +69,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER
             },
 
-            createAt: {
+            createdAt: {
                 allowNull: false,
                 type: DataTypes.DATE,
                 defaultValue: DataTypes.NOW
