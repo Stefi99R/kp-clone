@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const apiURL = () => 
-    `${process.env.REACT_APP_BASE_URL}/api`;
+    `${process.env.REACT_APP_SERVICE_BASE_URL}/api`;
 export const apiURLv1 = apiURL();
 
 export const privateApi = axios.create({

@@ -11,7 +11,7 @@ export const routes = [
     {
         path: '/',
         render: function AdsRoute() {
-            return <PrivateRoute title="Home" component={Ads}/>
+            return <PrivateRoute title="Home" component={Ads} />
         }
     }
 ];

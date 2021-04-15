@@ -1,0 +1,12 @@
+.ad{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.ad p {
+    margin: 0 10px 0 10px;
+}
+.ad-header {
+    display: flex;
+    justify-content: center;
+}

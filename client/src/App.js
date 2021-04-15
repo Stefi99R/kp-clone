@@ -11,7 +11,7 @@ export function App() {
   const [user, setUser] = useState(useState(null));
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
-const queryClient = new QueryClient();
+  const queryClient = new QueryClient();
 
   return (
     <Router>
