@@ -2,15 +2,19 @@ import * as React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 import { useAd } from '../hooks/useAds';
+import { removeAd } from '../services/ads';
+import { useHistory } from 'react-router-dom';
 
 export function Ad() {
 
     const { id } = useParams()
     const { status, data, error, isFetching } = useAd(id);
+    const history = useHistory();
 
-    //const deleteAd = async (id) => {
-        //
-    //}
+    const deleteAd = async (id) => {
+        await removeAd(id);
+        history.push('/');
+    }
 
     const { user } = React.useContext(UserContext);
     
@@ -40,8 +44,7 @@ export function Ad() {
                         </div>
                         <div>
                             {user?.id === data.userId ? (<Link to={`/ad/edit/${id}`}>Edit</Link>) : ""}
-                            
-                            {/* <Link to="/" onClick={() => deleteAd(id)}>Delete</Link> */}
+                            {user?.id === data.userId ? <button onClick={() => deleteAd(id)}>Delete</button> : ""}
                         </div>
                         <div>{isFetching ? "Background Updating..." : ""}</div>
                     </>

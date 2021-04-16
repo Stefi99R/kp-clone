@@ -1,7 +1,6 @@
 import { privateApi } from "../config/axios-instance";
 import { responseOk } from "../utils/responseOk";
 
-
 export async function getAds() {
     let data = [];
     try {
@@ -66,3 +65,16 @@ export async function updateAd(reqData) {
     }
     return data;
 };
+
+export async function removeAd(id) {
+    let data = [];
+    try {
+        const response = await privateApi.delete(`ads/${id}`);
+        if (responseOk(response)) {
+            data = response.data;
+        }
+    } catch(err) {
+        console.log(err);
+    }
+    return data;
+}
