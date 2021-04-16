@@ -57,9 +57,7 @@ export function LoginForm() {
                 </input>
                
                     <button type="submit" disabled={isSubmitting}>
-                        <Link to="/">
                             Login
-                        </Link>
                     </button>
             </div>
         </form>

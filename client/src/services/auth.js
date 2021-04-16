@@ -41,5 +41,4 @@ function storeTokenInformationToCookies({
     token,
 }) {
     Cookies.set('access_token', token);
-    console.log(Cookies.get('access_token'))
 }

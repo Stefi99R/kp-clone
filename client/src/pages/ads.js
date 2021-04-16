@@ -79,15 +79,15 @@ export function Ads() {
                 <li>
                     <select value={category} onChange={handleCategoryChange}>
                         <option value="" disabled>Choose a category:</option>
-                        <option value="clothing">Clothing</option>
-                        <option value="tools">Tools</option>
-                        <option value="sports">Sports</option>
-                        <option value="accessories">Accessories</option>
-                        <option value="furniture">Furniture</option>
-                        <option value="pets">Pets</option>
-                        <option value="games">Games</option>
-                        <option value="books">Books</option>
-                        <option value="technology">Technology</option>
+                        <option value="clothing">clothing</option>
+                        <option value="tools">tools</option>
+                        <option value="sports">sports</option>
+                        <option value="accessories">accessories</option>
+                        <option value="furniture">furniture</option>
+                        <option value="pets">pets</option>
+                        <option value="games">games</option>
+                        <option value="books">books</option>
+                        <option value="technology">technology</option>
                     </select>
                 </li>
                 <li>

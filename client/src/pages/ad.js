@@ -13,8 +13,6 @@ export function Ad() {
     //}
 
     const { user } = React.useContext(UserContext);
-    console.log(user);
-    console.log(data);
     
     return (
         <div>
