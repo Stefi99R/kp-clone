@@ -66,7 +66,8 @@ module.exports = (sequelize, DataTypes) => {
 
             /** Number of the views for the ad */
             count: {
-                type: DataTypes.INTEGER
+                type: DataTypes.INTEGER,
+                defaultValue: 0
             },
 
             createdAt: {

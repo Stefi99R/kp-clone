@@ -76,6 +76,7 @@ const storeAd = async (req, res, next) => {
             price,
             category,
             city,
+            count: 0,
             userId: id
         });
         res.json(store);
