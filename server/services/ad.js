@@ -7,7 +7,7 @@ const getAds = async (req, res, next) => {
     try {
         let {
             sortBy = "createdAt",
-            asc = true,
+            asc = false,
             onlyMe = '',
             limit = 20,
             category = "",

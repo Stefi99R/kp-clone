@@ -6,13 +6,13 @@ const categoriesEnum = require('../../config/categories');
 const ads = [...Array(100)].map(() => ({
     name: faker.commerce.productName(),
     description: faker.commerce.productDescription(),
-    url: faker.image.technics(),
+    url: `${faker.image.technics()}?random=${Date.now()}`,
     price: faker.commerce.price(),
     category: faker.random.arrayElement(categoriesEnum),
     userId: faker.datatype.number({ min:1, max:9}),
     city: faker.address.city(),
     count: faker.datatype.number(1000),
-    createdAt: new Date(),
+    createdAt: faker.date.past(),
     updatedAt: new Date(),
 }))
 
