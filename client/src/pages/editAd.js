@@ -3,11 +3,13 @@ import { useParams } from 'react-router-dom';
 import { useAd } from '../hooks/useAds';
 import { useForm } from 'react-hook-form';
 import { updateAd } from '../services/ads';
+import { useHistory } from 'react-router-dom';
 
 export function EditAd() {
 
     const { id } = useParams();
     const { status, data: ad, error, isFetching } = useAd(id);
+    const history = useHistory();
 
     const getFormValues = React.useCallback(
         () => ({
@@ -56,6 +58,7 @@ export function EditAd() {
             city
         }
         await updateAd(requestData);
+        history.push(`/`);
     };
 
     return (

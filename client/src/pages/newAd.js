@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { createAd } from '../services/ads';
+import { useHistory } from 'react-router-dom';
 
 export function NewAd() {
+
+    const history = useHistory();
 
     const getFormValues = React.useCallback(
         () => ({
@@ -40,6 +43,7 @@ export function NewAd() {
             city
         }
         await createAd(requestData);
+        history.push(`/`);
     }
 
     return (

@@ -5,6 +5,7 @@ import { routes } from './routes';
 import { NotFound } from './pages/notFound';
 import { UserContext } from './contexts/UserContext';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { history } from './utils/history';
 
 export function App() {
 
@@ -14,7 +15,7 @@ export function App() {
   const queryClient = new QueryClient();
 
   return (
-    <Router>
+    <Router history={history}>
       <UserContext.Provider value={value}>
           <QueryClientProvider client={queryClient}>
             <Switch>

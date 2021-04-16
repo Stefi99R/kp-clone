@@ -2,12 +2,14 @@ import * as React from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useForm } from 'react-hook-form';
 import { registerUser } from "../services/auth";
+import { useHistory } from 'react-router-dom';
 
 export function RegisterForm() {
 
     const [ isSubmitting, setIsSubmitting ] = React.useState(false);
     const [ requestError, setRequestError ] = React.useState('');
     const { setUser } = React.useContext(UserContext);
+    const history = useHistory();
 
     const { register, handleSubmit, errors } = useForm({
         defaultValues: { username: "example123" },
@@ -26,6 +28,7 @@ export function RegisterForm() {
             const user = await registerUser(requestData);
             if (user) {
                 await setUser(user);
+                history.push(`/`);
             }
 
         } catch(error) {
