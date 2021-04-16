@@ -13,7 +13,7 @@ export async function getAds() {
         console.error(err);
     }
     return data;
-}
+};
 
 export async function getAd(id) {
     let data = [];
@@ -39,4 +39,17 @@ export async function countUp(id) {
         console.error(err);
     }
     return data;
-}
+};
+
+export async function createAd(reqData) {
+    let data = [];
+    try {
+        const response = await privateApi.post(`/ads`,{...reqData});
+        if (responseOk(response)) {
+            data = response.data;
+        }
+    } catch(error) {
+        console.error(error);
+    }
+    return data;
+};

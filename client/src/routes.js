@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import { Ad } from './pages/ad';
 import { LoginForm } from './pages/loginForm';
 import { RegisterForm } from './pages/registerForm';
+import { NewAd } from './pages/newAd';
 
 export const routes = [
     {
@@ -34,7 +35,14 @@ export const routes = [
         render: function RegisterRoute() {
             return <PrivateRoute title="Register" component={RegisterForm} />
         }
-    }
+    },
+    {
+        path: "/create",
+        render: function CreateNewAd() {
+            return <PrivateRoute title="Create a new Ad" component={NewAd} />
+        }
+    },
+
 ];
 
 export function PrivateRoute({
@@ -60,9 +68,9 @@ export function PrivateRoute({
                         <>
                             <p>{username}</p>
                             <li><Link to="/">Home</Link></li>
-                            {/* <li><Link to="/create">Add a new ad</Link></li> */}
+                            <li><Link to="/create">Add a new ad</Link></li>
                             <li><Link to="/login" onClick={removeCookies}>Sign out</Link></li>
-                            <Component /> { /* komponenta koja se nalazi ispod navbara */}
+                            <Component />
                         </>
                     ) : (
                         <>
