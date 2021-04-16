@@ -30,8 +30,8 @@ const register = async (req, res, next) => {
 };
 
 const login = async (req, res, next) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
+    const { username, password } = req.body;
+    if (!username || !password) {
         return res.status(400).send("Please fill in all the fields.");
     }
     try {
@@ -42,10 +42,10 @@ const login = async (req, res, next) => {
             return res.status(400).send("Invalid username or password.");
         }
 
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(400).send({ msg: "Invalid username or password."});
-        }
+        //const isMatch = await bcrypt.compare(password, user.password);
+        //if (!isMatch) {
+            //return res.status(400).send({ msg: "Invalid username or password."});
+        //}
 
         const token = jwt.sign(
             {id: user.id, username: user.username },

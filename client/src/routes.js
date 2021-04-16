@@ -7,6 +7,7 @@ import { fetchUserInfo } from './services/user';
 import Cookies from 'js-cookie';
 import { useContext } from 'react';
 import { Ad } from './pages/ad';
+import { LoginForm } from './pages/loginForm';
 
 export const routes = [
     {
@@ -19,6 +20,12 @@ export const routes = [
         path: "/ad/:id",
         render: function AdRoute() {
             return <PrivateRoute title="Home" component={Ad} />
+        }
+    },
+    {
+        path: "/login",
+        render: function LoginRoute() {
+            return <PrivateRoute title="Register" component={LoginForm} />
         }
     }
 ];
@@ -53,8 +60,8 @@ export function PrivateRoute({
                     ) : (
                         <>
                             <li><Link to="/">Home</Link></li>
-                            {/* <li><Link to="/login">Login</Link></li>
-                            <li><Link to="/register">Register</Link></li> */}
+                            <li><Link to="/login">Login</Link></li>
+                            {/* <li><Link to="/register">Register</Link></li> */}
                             <Component />
                         </>
                     )
