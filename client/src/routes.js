@@ -11,6 +11,9 @@ import { LoginForm } from './pages/loginForm';
 import { RegisterForm } from './pages/registerForm';
 import { NewAd } from './pages/newAd';
 import { EditAd } from './pages/editAd';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import Logo from './assets/images/logo.png';
 
 export const routes = [
     {
@@ -73,17 +76,46 @@ export function PrivateRoute({
                 render = {() => 
                     isAuthenticated ? (
                         <>
-                            <p>{username}</p>
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to="/create">Add a new ad</Link></li>
-                            <li><Link to="/login" onClick={removeCookies}>Sign out</Link></li>
+                            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" >
+                            <Navbar.Brand href="/">
+                                <img
+                                    src={Logo}
+                                    className="d-inline-block align-top"
+                                    alt=""
+                                />
+                            </Navbar.Brand>
+                            <Navbar.Brand href="/">Kp Clone</Navbar.Brand>
+                                <Nav className="mr-auto">
+                                    <Nav.Link href="/">Home</Nav.Link>
+                                    <Nav.Link href="/create">Create a new ad</Nav.Link>
+                                </Nav>
+                                <Nav>
+                                    <Nav.Link>{username}</Nav.Link>
+                                    <Nav.Link href="/login" onSelect={() => removeCookies()}>Sign out</Nav.Link>
+                                </Nav>
+                            </Navbar>
                             <Component />
                         </>
                     ) : (
                         <>
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to="/login">Login</Link></li>
-                            <li><Link to="/register">Register</Link></li>
+                            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" >
+                            <Navbar.Brand href="/">
+                                <img
+                                    src={Logo}
+                                    className="d-inline-block align-top"
+                                    alt=""
+                                />
+                            </Navbar.Brand>
+                            <Navbar.Brand href="/">Kp Clone</Navbar.Brand>
+                                <Nav className="mr-auto">
+                                    <Nav.Link href="/">Home</Nav.Link>
+                                </Nav>
+                                <Nav>
+                                    <Nav.Link>{username}</Nav.Link>
+                                    <Nav.Link href="/login">Login</Nav.Link>
+                                    <Nav.Link href="/register">Sign up</Nav.Link>
+                                </Nav>
+                            </Navbar>
                             <Component />
                         </>
                     )
