@@ -53,3 +53,16 @@ export async function createAd(reqData) {
     }
     return data;
 };
+
+export async function updateAd(reqData) {
+    let data = [];
+    try {
+        const response = await privateApi.patch(`/ads/${reqData.id}`, {...reqData});
+        if (responseOk(response)) {
+            data = response.data;
+        }
+    } catch(error) {
+        console.error(error);
+    }
+    return data;
+};

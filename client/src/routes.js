@@ -10,6 +10,7 @@ import { Ad } from './pages/ad';
 import { LoginForm } from './pages/loginForm';
 import { RegisterForm } from './pages/registerForm';
 import { NewAd } from './pages/newAd';
+import { EditAd } from './pages/editAd';
 
 export const routes = [
     {
@@ -40,6 +41,12 @@ export const routes = [
         path: "/create",
         render: function CreateNewAd() {
             return <PrivateRoute title="Create a new Ad" component={NewAd} />
+        }
+    },
+    {
+        path: "/ad/edit/:id",
+        render: function AdEditRoute() {
+            return <PrivateRoute title="Edit ad" component={EditAd} />
         }
     },
 

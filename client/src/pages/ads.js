@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import * as React from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
@@ -100,10 +101,14 @@ export function Ads() {
                     <label htmlFor="max">From higher to lower</label>
                     <input type="radio" id="max" name="price" value="max" onChange={handlePriceFilter}/>
                 </li>
-                <li>
-                    <label htmlFor="mine">Only mine</label>
-                    <input type="checkbox" id="mine" onChange={handleMine}></input>
-                </li>
+                {Cookies.get('access_token') === undefined ? (
+                    <p hidden></p>
+                ) : (
+                    <li>
+                        <label htmlFor="mine">Only mine</label>
+                        <input type="checkbox" id="mine" onChange={handleMine}></input>
+                    </li>
+                )}
                 <li>
                     <button type="button" onClick={() => {setPage(page + 10)}}>more</button>
                 </li>
