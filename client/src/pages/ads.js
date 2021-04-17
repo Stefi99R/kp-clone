@@ -7,6 +7,7 @@ import { UserContext } from '../contexts/UserContext';
 import '../assets/styles/ads.css';
 import { useHistory } from 'react-router-dom';
 import 'bootstrap';
+import debounce from 'lodash.debounce';
 
 export function Ads() {
 
@@ -21,121 +22,49 @@ export function Ads() {
 
     const [ page, setPage ] = React.useState(10);
 
-    const filter = async (onlyMe, price, category, search) => {
-        
-        /*if ((search !== '' || inputSearch !== '') && (onlyMe || price !== '' || category !== '')) {
-            const { data } = await privateApi('/ads');
-            return data;
-        }*/
-
-        if (search !== '') {
-            const { data } = await privateApi('/ads?search=' + search);
-            return data;
-        }
-
-        if (onlyMe) {
-
-            if (price !== '') {
-                let asc = 'asc';
-                if (price === 'min') {
-                    asc = 'asc=false'
-                }
-                if (category !== '') {
-                    const { data } = await privateApi('/ads?' + asc + '&price=' + price + '&onlyMe=' + user.id + '&category=' + category);
-                    return data;
-                }
-                const { data } = await privateApi('/ads?' + asc + '&price=' + price + '&onlyMe=' + user.id);
-                return data;
-            }
-
-            if (category !== '') {
-
-                if (price !== '') {
-                    let asc = 'asc';
-                    if (price === 'min') {
-                        asc = 'asc=false'
-                    }
-                    const { data } = await privateApi('/ads?' + asc + '&price=' + price + '&onlyMe=' + user.id + '&category=' + category);
-                    return data;
-                }
-
-                const { data } = await privateApi('/ads?category=' + category + '&onlyMe=' + user.id);
-                return data;
-            }
-
-            const { data } = await privateApi('/ads?onlyMe=' + user.id);
-            return data;
-        }
-
-        if (price !== '') {
-            let asc = 'asc';
-            if (price === 'min') {
-                asc = 'asc=false'
-            }
-
-            if(category !== 'null') {
-                if (onlyMe) {
-                    const { data } = await privateApi('/ads?' + asc + '&price=' + price + '&category=' + category + '&onlyMe=' + user.id);
-                    return data;
-                }
-                const { data } = await privateApi('/ads?' + asc + '&price=' + price + '&category=' + category);
-                return data;
-            }
-
-            if (onlyMe) {
-                if (category !== '') {
-                    const { data } = await privateApi('/ads?' + asc + '&price=' + price + '&category=' + category + '&onlyMe=' + user.id);
-                    return data;
-                }
-                const { data } = await privateApi('/ads?' + asc + '&price=' + price + '&onlyMe=' + user.id)
-                return data;
-            }
-
-            const { data } = await privateApi('/ads?' + asc + '&price=' + price)
-            return data;
-        }
-
-        if (category !== '') {
-
-            if (price !== '') {
-                let asc = 'asc';
-                if (price === 'min') {
-                    asc = 'asc=false'
-                }
-                if (onlyMe) {
-                    const { data } = await privateApi('/ads?' + asc + '&price=' + price + '&category=' + category + '&onlyMe=' + user.id);
-                    return data;
-                }
-                const { data } = await privateApi('/ads?' + asc + '&price=' + price + '&category=' + category);
-                return data;
-            }
-
-            if (onlyMe) {
-                if (price !== '') {
-                    let asc = 'asc';
-                    if (price === 'min') {
-                        asc = 'asc=false'
-                    }
-                    const { data } = await privateApi('/ads?' + asc + '&price=' + price + '&category=' + category + '&onlyMe=' + user.id);
-                    return data;
-                }
-                const { data } = await privateApi('/ads?category=' + category + '&onlyMe=' + user.id);
-                return data;
-            }
-
-            const { data } = await privateApi('/ads?category=' + category);
-            return data;
-        }
-        const { data } = await privateApi('/ads');
-        return data;
-    }
-
     const {
         status,
         data,
         error,
         isFetching,
     } = useQuery(['ads', [onlyMe, price, category, search]], () => filter(onlyMe, price, category, search), { keepPreviousData: false});
+
+
+    const filter = async (onlyMe, price, category, search) => {
+
+        let query = '/ads?';
+
+        let where = {
+            search: '',
+            onlyMe: false,
+            price: '',
+            category: ''
+        };
+
+        if (search !== '') {
+            where.search = 'search=' + search;
+        }
+        if (onlyMe) {
+            where.onlyMe = 'onlyMe=' + user.id;
+        }
+        if (price !== '') {
+            let asc = 'asc';
+            if (price === 'min') {
+                asc = 'asc=false'
+            }
+            where.price = '' + asc + '&price=' + price;
+        }
+        if (category !== '') {
+            where.category = 'category=' + category;
+        }
+
+        for (const [key, value] of Object.entries(where)) {
+            query += `${value}&`;
+        }
+
+        const { data } = await privateApi(query);
+        return data;
+    }
 
     const handleCategoryChange = (event) => {
         setCategory(event.target.value)
@@ -153,13 +82,11 @@ export function Ads() {
         setInputSearch(event.target.value);
     }
 
-    const handleSearch = () => {
-        if (inputSearch !== '')
-            setSearch(inputSearch);
-        else {
-            history.push('/');
-        }
-    }
+    const handleSearch = 
+        React.useCallback(debounce((event) => {
+                setSearch(event.target.value);
+        }, 200), []);
+    
 
     const openAd = (id) => {
         history.push(`/ad/${id}`);
@@ -172,8 +99,8 @@ export function Ads() {
             <div class="row">
                 <div class="col-md-4">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Enter text..." onChange={handleSearchInput}/>
-                        <button class="btn btn-info" type="button" onClick={handleSearch}>
+                        <input type="text" class="form-control" placeholder="Enter text..." onChange={handleSearch}/>
+                        <button class="btn btn-info" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                             </svg>
@@ -221,11 +148,18 @@ export function Ads() {
                     {/* <button type="button" onClick={() => {setPage(page + 10)}}>more</button> */}
             <div>
                 { status === "loading" ? (
-                    "Loading..."
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status" style={{marginTop: 200 + 'px'}}>
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
                 ) : status === "error" ? (
-                    <span>Error: {error}</span>
+                    <div class="alert alert-danger" role="alert">
+                        Error: {error}
+                    </div>
                 ) : (
                     <>
+                    { data.length > 0 ? (
                         <div class="table-responsive">
                         <table class="table table-striped table-hover">
                             <thead>
@@ -258,6 +192,12 @@ export function Ads() {
                             </tbody>
                         </table>
                         </div>
+                    ) : (
+                        <div class="alert alert-warning my-5 text-center" role="alert">
+                            No data to display!
+                        </div>
+                    ) }
+                        
                     </>
                 )
             }
