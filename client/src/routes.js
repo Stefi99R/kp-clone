@@ -1,4 +1,4 @@
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { removeCookies } from './config/axios-instance';
 import { UserContext } from './contexts/UserContext';
 import { Ads } from './pages/ads';
@@ -63,10 +63,15 @@ export function PrivateRoute({
     const isAuthenticated = Cookies.get('access_token');
     const { user, setUser } = useContext(UserContext);
 
+    let user_login = null;
     useQuery('user', async () => {
-        const user = await fetchUserInfo();
-        setUser(user)
+        user_login = isAuthenticated ? (
+           setUser(user_login)
+        ) : (
+            console.log("")
+        )
     })
+    
     const username = user?.username;
     return (
         <>
@@ -96,7 +101,7 @@ export function PrivateRoute({
                                     <Nav.Link className="ml-auto" href="/login" onSelect={() => removeCookies()}>Sign out</Nav.Link>
                                 </Nav>
                             </Navbar>
-                            <div class="container my-5">
+                            <div className="container my-5">
                                 <Component />
                             </div>
                         </>
@@ -121,7 +126,7 @@ export function PrivateRoute({
                                     <Nav.Link className="border-left pl-2 ml-auto" href="/register">Sign up</Nav.Link>
                                 </Nav>
                             </Navbar>
-                            <div class="container my-5">
+                            <div className="container my-5">
                                 <Component />
                             </div>
                         </>
