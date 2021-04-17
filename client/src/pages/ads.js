@@ -1,13 +1,13 @@
 import Cookies from 'js-cookie';
 import * as React from 'react';
 import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
 import { privateApi } from '../config/axios-instance';
-import { UserContext } from '../contexts/UserContext';
+//import { UserContext } from '../contexts/UserContext';
 import '../assets/styles/ads.css';
 import { useHistory } from 'react-router-dom';
 import 'bootstrap';
 import debounce from 'lodash.debounce';
+import { parseJwt } from '../services/auth';
 
 export function Ads() {
 
@@ -18,7 +18,7 @@ export function Ads() {
     const [ inputSearch, setInputSearch ] = React.useState('');
     const history = useHistory();
 
-    const { user } = React.useContext(UserContext);
+    //const { user } = React.useContext(UserContext);
 
     const [ page, setPage ] = React.useState(10);
 
@@ -45,7 +45,7 @@ export function Ads() {
             where.search = 'search=' + search;
         }
         if (onlyMe) {
-            where.onlyMe = 'onlyMe=' + user.id;
+            where.onlyMe = 'onlyMe=' + parseJwt().id;
         }
         if (price !== '') {
             let asc = 'asc';
@@ -170,6 +170,7 @@ export function Ads() {
                                     <th scope="col">Category</th>
                                     <th scope="col">City</th>
                                     <th scope="col">View count</th>
+                                    <th scope="col">Options</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -185,8 +186,16 @@ export function Ads() {
                                     <td><span className="badge bg-info text-dark">{ad.category}</span></td>
                                     <td>{ad.city}</td>
                                     <td>
-                                        <span className="badge bg-dark">{ad.count}</span>
+                                        <span className="badge bg-dark">{ad.count} times</span>
                                     </td>
+                                    {parseJwt().username === ad.User.username ? (
+                                        <td>
+                                            <button type="submit" className="btn btn-warning" onClick={() => {console.log(data)}}>Edit</button>
+                                            <button type="button" className="btn btn-danger mx-1">Delete</button>
+                                        </td>
+                                        ) : (
+                                        <td></td>
+                                        )}
                                 </tr>
                                 ))}
                             </tbody>

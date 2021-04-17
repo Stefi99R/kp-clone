@@ -48,7 +48,7 @@ const login = async (req, res, next) => {
         }
 
         const token = jwt.sign(
-            {id: user.id, username: user.username },
+            {id: user.id, username: user.username, phone: user.phone },
             secret
         );
         res.header("Authentication-token", token).send({token});

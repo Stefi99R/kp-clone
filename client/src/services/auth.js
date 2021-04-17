@@ -7,6 +7,8 @@ import {
 
 import { responseOk } from '../utils/responseOk';
 
+import { UserContext } from '../contexts/UserContext';
+
 export async function loginUser({
     username,
     password,
@@ -41,4 +43,17 @@ function storeTokenInformationToCookies({
     token,
 }) {
     Cookies.set('access_token', token);
+}
+
+export function parseJwt() {
+    const token = Cookies.get('access_token');
+
+    if (!token) { 
+        return; 
+    }
+
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+
+    return JSON.parse(window.atob(base64));
 }
