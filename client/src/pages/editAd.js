@@ -65,7 +65,11 @@ export function EditAd() {
         <div>
             <div>
             {status === "loading" ? (
-                "Loading..."
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status" style={{marginTop: 200 + 'px'}}>
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
             ) : status === "error" ? (
                 <span>Error: {error.message}</span>
             ) : (

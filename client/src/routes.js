@@ -81,6 +81,8 @@ export function PrivateRoute({
                                 <img
                                     src={Logo}
                                     className="d-inline-block align-top"
+                                    width='32'
+                                    height='32'
                                     alt=""
                                 />
                             </Navbar.Brand>
@@ -101,10 +103,12 @@ export function PrivateRoute({
                     ) : (
                         <>
                             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" >
-                            <Navbar.Brand href="/">
+                            <Navbar.Brand padding='10px' href="/">
                                 <img
                                     src={Logo}
                                     className="d-inline-block align-top"
+                                    width='32'
+                                    height='32'
                                     alt=""
                                 />
                             </Navbar.Brand>
