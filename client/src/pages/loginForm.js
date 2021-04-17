@@ -14,7 +14,7 @@ export function LoginForm() {
     const history = useHistory();
 
     const { register, handleSubmit, errors } = useForm({
-        defaultValues: {username: "Griffin19", password: "Fi19TB4q"},
+        defaultValues: {username: "", password: ""},
     });
 
     async function onSubmit({ username, password }) {
@@ -40,29 +40,45 @@ export function LoginForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <h1>Welcome back!</h1>
-            <div>   
-                <label htmlFor="username">Username:</label>
-                <input 
+        <>
+        <h1 style={{textAlign: 'center'}}><b>Welcome back!</b></h1>
+        <form onSubmit={handleSubmit(onSubmit)} style={{justifyContent: 'center', alignItems: 'center'}}>
+            <div style={{justifyContent: 'center', alignItems: 'center', width: '50%', margin: '0 auto'}}>
+                <label htmlFor="username">Username</label>
+                <input placeholder="Enter your username..."
                     id="username"
                     name="username"
                     type="username"
-                    {...register('username')} />
+                    {...register('username')} 
+                    className="form-control" 
+                    aria-describedby="emailHelp" required/>
+                    <div className="invalid-feedback">
+                        Please enter a username.
+                    </div>
             </div>
-            <div>
-                <label htmlFor="password">Password:</label>
-                <input
+            <br/>
+            <div style={{justifyContent: 'center', alignItems: 'center', width: '50%', margin: '0 auto'}}>
+                <label htmlFor="password">Password</label>
+                <input placeholder="Enter your password..."
                     id="password"
                     name="password"
                     type="password"
-                    {...register('password')}>
-                </input>
-               
-                    <button type="submit" disabled={isSubmitting}>
-                            Login
-                    </button>
+                    {...register('password')} 
+                    className="form-control" required/>
+                    <div className="invalid-feedback">
+                        Please enter a username.
+                    </div>
             </div>
+            <br/>
+            <div style={{justifyContent: 'center', alignItems: 'center', width: '50%', margin: '0 auto'}}>
+                <button 
+                    type="submit" 
+                    className="btn btn-primary btn-lg btn-block" 
+                    disabled={isSubmitting}
+                    style={{justifyContent: 'center', alignItems: 'center', width: '100%', margin: '0 auto'}}>Login</button>
+            </div>
+            
         </form>
+        </>
     )
 }
