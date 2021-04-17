@@ -6,20 +6,28 @@ import { useHistory } from 'react-router-dom';
 export function NewAd() {
 
     const history = useHistory();
+    const [ isSubmitting, setIsSubmitting ] = React.useState(false);
+    const [ category, setCategory ] = React.useState('');
 
     const getFormValues = React.useCallback(
         () => ({
-            url: "URL of the image of the product",
-            name: "Name of the ad",
-            description: "Description for the ad",
-            price: "Price for the ad",
-            city: "Place from which the product is being delivered",
+            url: "",
+            name: "",
+            description: "",
+            price: "",
+            city: "",
         }),
     );
 
     const defaultValues = React.useMemo(() => getFormValues(), [
         getFormValues,
     ]);
+
+    const handleCategoryChange = (event) => {
+        
+        setCategory(event.target.value)
+        console.log(category)
+    }
 
     const { register, handleSubmit } = useForm({
         defaultValues,
@@ -31,81 +39,101 @@ export function NewAd() {
         name,
         description,
         price,
-        category,
         city
     }) => {
-        const requestData = {
-            url,
-            name,
-            description,
-            price,
-            category,
-            city
+        try {
+            setIsSubmitting(true);
+
+            const requestData = {
+                url,
+                name,
+                description,
+                price,
+                category,
+                city
+            }
+            await createAd(requestData);
+        } catch(error) {
+            console.error(error);
+        } finally {
+            setIsSubmitting(false);
+            history.push(`/`);
         }
-        await createAd(requestData);
-        history.push(`/`);
     }
 
     return (
-        <form onSubmit={handleSubmit(newAd)} noValidate>
-            <div>
-                <label htmlFor="url">Image URL</label>
-                <input
-                id="url"
-                name="url"
-                type="text"
-                {...register('url')}
-
-                />
+        <>
+        <form className="row g-3 col-md-8" style={{margin: '0 auto'}} onSubmit={handleSubmit(newAd)}>
+            <div className="col-md-6">
+                <label htmlFor="name" className="form-label">Name of the product</label>
+                <input id="name"
+                        name="name"
+                        type="text"
+                        {...register('name')} 
+                        className="form-control"
+                        placeholder="Name of the ad..."/>
             </div>
-            <div>
-                <label htmlFor="name">Name</label>
-                <input
-                id="name"
-                name="name"
-                type="text"
-                {...register('name')}
-                />
+            <div className="col-md-6">
+                <label htmlFor="url" className="form-label">URL of the image for the product</label>
+                <input id="url"
+                        name="url"
+                        type="text"
+                        {...register('url')} 
+                        className="form-control"
+                        placeholder="URL of the image of the product..."/>
             </div>
-            <div>
-                <label htmlFor="description">Description</label>
-                <input
+            <div className="col-12">
+                <label htmlFor="description" className="form-label">Description</label>
+                <textarea 
+                className="form-control" 
+                aria-label="With textarea" 
                 id="description"
                 name="description"
                 type="text"
                 {...register('description')}
-                />
+                placeholder="Description of the ad..."></textarea>
+            </div>
+            <div className="col-md-6">
+                <label htmlFor="city" className="form-label">City</label>
+                <input id="city"
+                    name="city"
+                    type="text"
+                    {...register('city')} 
+                    className="form-control"
+                    placeholder="Place from which the product is being delivered..."/>
+            </div>
+            <div className="col-md-3">
+                <label htmlFor="category" className="form-label">Category</label>
+                    <select onChange={handleCategoryChange} value={category} className="form-select">
+                        <option value="" disabled>Choose a category:</option>
+                        <option value="clothing">clothing</option>
+                        <option value="tools">tools</option>
+                        <option value="sports">sports</option>
+                        <option value="accessories">accessories</option>
+                        <option value="furniture">furniture</option>
+                        <option value="pets">pets</option>
+                        <option value="games">games</option>
+                        <option value="books">books</option>
+                        <option value="technology">technology</option>
+                    </select>
+            </div>
+            <div className="col-md-3">
+                <label htmlFor="price" className="form-label">Price (USD)</label>
+                <input id="price"
+                        name="price"
+                        type="text"
+                        {...register('price')} 
+                        className="form-control"
+                        placeholder="Price in USD..."/>
             </div>
             <div>
-                <label htmlFor="price">Price</label>
-                <input
-                id="price"
-                name="price"
-                type="text"
-                {...register('price')}
-                />
+                <button 
+                type="submit" 
+                className="btn btn-primary btn-lg btn-block" 
+                disabled={isSubmitting}
+                style={{justifyContent: 'center', alignItems: 'center', width: '100%', margin: '0 auto'}}>Add my ad</button>
             </div>
-            <div>
-                <label htmlFor="category">Category</label>
-                <input
-                id="category"
-                name="category"
-                type="text"
-                {...register('category')}
-                />
-            </div>
-            <div>
-                <label htmlFor="city">From</label>
-                <input
-                id="city"
-                name="city"
-                type="text"
-                {...register('city')}
-                />
-            </div>
-            <button type="submit">
-                Create a new Ad
-            </button>
         </form>
+        </>
     );
 }

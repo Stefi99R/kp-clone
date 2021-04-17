@@ -81,8 +81,8 @@ export function PrivateRoute({
                 render = {() => 
                     isAuthenticated ? (
                         <>
-                            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" >
-                            <Navbar.Brand href="/">
+                        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" >
+                            <Navbar.Brand style={{padding: '0px 0px 0px 15px'}} href="/">
                                 <img
                                     src={Logo}
                                     className="d-inline-block align-top"
@@ -108,7 +108,7 @@ export function PrivateRoute({
                     ) : (
                         <>
                             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" >
-                            <Navbar.Brand padding='10px' href="/">
+                            <Navbar.Brand style={{padding: '0px 0px 0px 15px'}} href="/">
                                 <img
                                     src={Logo}
                                     className="d-inline-block align-top"
@@ -122,8 +122,8 @@ export function PrivateRoute({
                                     <Nav.Link href="/">Home</Nav.Link>
                                 </Nav>
                                 <Nav className="container-fluid">
-                                    <Nav.Link  className="me-2" href="/login">Login</Nav.Link>
-                                    <Nav.Link className="border-left pl-2 ml-auto" href="/register">Sign up</Nav.Link>
+                                    <Nav.Link href="/login">Login</Nav.Link>
+                                    <Nav.Link href="/register">Sign up</Nav.Link>
                                 </Nav>
                             </Navbar>
                             <div className="container my-5">
