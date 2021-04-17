@@ -85,16 +85,18 @@ export function PrivateRoute({
                                 />
                             </Navbar.Brand>
                             <Navbar.Brand href="/">Kp Clone</Navbar.Brand>
-                                <Nav className="mr-auto">
-                                    <Nav.Link href="/">Home</Nav.Link>
-                                    <Nav.Link href="/create">Create a new ad</Nav.Link>
+                                <Nav className="container-fluid">
+                                    <Nav.Link className="ml-auto" href="/">Home</Nav.Link>
+                                    <Nav.Link className="mr-auto" href="/create">Create a new ad</Nav.Link>
                                 </Nav>
-                                <Nav>
+                                <Nav className="container-fluid">
                                     <Nav.Link>{username}</Nav.Link>
-                                    <Nav.Link href="/login" onSelect={() => removeCookies()}>Sign out</Nav.Link>
+                                    <Nav.Link className="ml-auto" href="/login" onSelect={() => removeCookies()}>Sign out</Nav.Link>
                                 </Nav>
                             </Navbar>
-                            <Component />
+                            <div class="container my-5">
+                                <Component />
+                            </div>
                         </>
                     ) : (
                         <>
@@ -110,13 +112,14 @@ export function PrivateRoute({
                                 <Nav className="mr-auto">
                                     <Nav.Link href="/">Home</Nav.Link>
                                 </Nav>
-                                <Nav>
-                                    <Nav.Link>{username}</Nav.Link>
-                                    <Nav.Link href="/login">Login</Nav.Link>
-                                    <Nav.Link href="/register">Sign up</Nav.Link>
+                                <Nav className="container-fluid">
+                                    <Nav.Link  className="me-2" href="/login">Login</Nav.Link>
+                                    <Nav.Link className="border-left pl-2 ml-auto" href="/register">Sign up</Nav.Link>
                                 </Nav>
                             </Navbar>
-                            <Component />
+                            <div class="container my-5">
+                                <Component />
+                            </div>
                         </>
                     )
                 }

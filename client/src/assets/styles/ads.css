@@ -10,3 +10,40 @@
     display: flex;
     justify-content: center;
 }
+
+.search-form {
+    border-radius: 30px 30px 30px 30px;
+    display: inline-block;
+    text-align: left;
+    width: 70%;
+    height: 100%;
+}
+
+.form-outline {
+    margin: 10px auto;
+	width: 30%;
+}
+
+.filters {
+    border-radius: 10px 10px 10px 10px;
+    float: left;
+    margin: auto 10px;
+    width: 10%;
+    height: 40%;
+    text-align: center;
+    text-align-last: center;
+}
+
+.whole_row {
+    width: 100%;
+    text-justify: center;
+    display: block;
+}
+
+.borderless_button {
+    border: none;
+};
+
+.test {
+    margin: auto 0;
+}
