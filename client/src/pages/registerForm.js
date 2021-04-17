@@ -12,7 +12,7 @@ export function RegisterForm() {
     const history = useHistory();
 
     const { register, handleSubmit, errors } = useForm({
-        defaultValues: { username: "example123" },
+        defaultValues: { username: "", password: "", phone: "" },
     });
 
     async function onSubmit({ username, password, phone }) {
@@ -39,39 +39,58 @@ export function RegisterForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <h1>Register</h1>
-            <div>
-                <label htmlFor="username">Username</label>
-                <input
-                id="username"
-                name="username"
-                type="username"
-                {...register('username')}
-
-                />
+        <>
+            <h1 style={{textAlign: 'center'}}><b>We welcome you to our store!</b></h1>
+            <div className="container">
+            <div className="row">
+                <div className="col-md-6 offset-md-3 my-5">
+                    <form method="POST" autocomplete="off" onSubmit={handleSubmit(onSubmit)}>
+                        <div className="mb-3">
+                        <label htmlFor="username" className="form-label">Username</label>
+                        <input id="username"
+                                name="username"
+                                type="username"
+                                {...register('username')} 
+                                className="form-control" required/>
+                                <div className="invalid-feedback">
+                                    Please enter a username.
+                                </div>
+                        </div>
+                        <div className="mb-3">
+                        <label htmlFor="password" className="form-label">Password</label>
+                        <input id="password"
+                                name="password"
+                                type="password"
+                                {...register('password')} 
+                                className="form-control" required/>
+                                <div className="invalid-feedback">
+                                    Please enter a username.
+                                </div>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="telephone" className="form-label">Telephone number</label>
+                            <input id="phone"
+                                    name="phone"
+                                    type="text"
+                                    {...register('phone')} 
+                                    className="form-control"
+                                    aria-describedby="phone" required/>
+                                    <div className="invalid-feedback">
+                                        Please enter a username.
+                                    </div>
+                            <div id="phone" className="form-text">We'll never share your username and telephone with anyone else.</div>
+                        </div>
+                        <div style={{justifyContent: 'center', alignItems: 'center', width: '100%', margin: '0 auto'}}>
+                            <button 
+                                type="submit" 
+                                className="btn btn-primary btn-lg btn-block" 
+                                disabled={isSubmitting}
+                                style={{justifyContent: 'center', alignItems: 'center', width: '100%', margin: '0 auto'}}>Register</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
             </div>
-            <div>
-                <label htmlFor="password">Password</label>
-                <input
-                id="password"
-                name="password"
-                type="password"
-                {...register('password')}
-                />
-            </div>
-            <div>
-                <label htmlFor="phone">Phone number</label>
-                <input
-                id="phone"
-                name="phone"
-                type="text"
-                {...register('phone')}
-                />
-            </div>
-            <button type="submit" disabled={isSubmitting}>
-                Sign In
-            </button>
-        </form>
+        </>
       );
 }
