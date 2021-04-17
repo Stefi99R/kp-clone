@@ -32,7 +32,9 @@ export function Ad() {
                         </div>
                     </div>
                 ) : status === "error" ? (
-                    <span>Error: {error.message}</span>
+                    <div class="alert alert-danger" role="alert">
+                        Error: {error}
+                    </div>
                 ) : (
                     <>
 

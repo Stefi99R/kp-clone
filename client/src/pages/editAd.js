@@ -71,7 +71,9 @@ export function EditAd() {
                     </div>
                 </div>
             ) : status === "error" ? (
-                <span>Error: {error.message}</span>
+                <div class="alert alert-danger" role="alert">
+                        Error: {error}
+                    </div>
             ) : (
                 <>
                 <form onSubmit={handleSubmit(editAd)} noValidate>
