@@ -7,7 +7,7 @@ import { UserContext } from './contexts/UserContext';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { history } from './utils/history';
 
-export function App() {
+function App() {
 
   const [user, setUser] = useState(useState(null));
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
@@ -33,3 +33,5 @@ export function App() {
     </Router>
   );
 }
+
+export {App};
