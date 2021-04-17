@@ -3,7 +3,6 @@ import { removeCookies } from './config/axios-instance';
 import { UserContext } from './contexts/UserContext';
 import { Ads } from './pages/ads';
 import { useQuery } from 'react-query';
-import { fetchUserInfo } from './services/user';
 import Cookies from 'js-cookie';
 import { useContext } from 'react';
 import { Ad } from './pages/ad';
@@ -14,6 +13,7 @@ import { EditAd } from './pages/editAd';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Logo from './assets/images/logo.png';
+import { parseJwt } from './services/auth';
 
 export const routes = [
     {
@@ -72,7 +72,7 @@ export function PrivateRoute({
         )
     })
     
-    const username = user?.username;
+    const username = parseJwt()?.username;
     return (
         <>
             <title>{title}</title>
