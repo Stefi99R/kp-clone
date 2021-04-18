@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { UserContext } from '../contexts/UserContext';
+import { useParams } from 'react-router-dom';
 import { useAd } from '../hooks/useAds';
 import { removeAd } from '../services/ads';
 import { useHistory } from 'react-router-dom';
@@ -11,7 +10,6 @@ function Ad() {
     const { id } = useParams()
     const { status, data, error, isFetching } = useAd(id);
     const history = useHistory();
-    const [ category, setCategory ] = React.useState('');
 
     const deleteAd = async (id) => {
         await removeAd(id);
@@ -22,14 +20,12 @@ function Ad() {
         history.push(`/ad/edit/${id}`);
     }
 
-    const { user } = React.useContext(UserContext);
-    
     return (
         <div>
             <div>
                 {status === "loading" ? (
                     <div className="d-flex justify-content-center">
-                        <div className="spinner-border" role="status" style={{marginTop: 200 + 'px'}}>
+                        <div className="spinner-border" role="status" style={{ marginTop: 200 + 'px' }}>
                             <span className="visually-hidden">Loading...</span>
                         </div>
                     </div>
@@ -41,18 +37,18 @@ function Ad() {
                     <>
 
 
-                <div className="card">
-                        <div className="row g-0">
-                            <div className="col-md-4">
-                                <img src={data.url} className="card-img-top" alt="" width="500" height="390"/>
-                            </div>
-                            <div className="col-md-8">
-                                <div className="card-body">
-                                    <form className="row g-3">
+                        <div className="card">
+                            <div className="row g-0">
+                                <div className="col-md-4">
+                                    <img src={data.url} className="card-img-top" alt="" width="500" height="390" />
+                                </div>
+                                <div className="col-md-8">
+                                    <div className="card-body">
+                                        <form className="row g-3">
                                             <div className="row mb-3 mt-3">
                                                 <div className="col-md-5">
                                                     <label htmlFor="name" className="form-label">Name of the product</label>
-                                                    <input type="text" className="form-control" id="name" value={data.name} readOnly/>
+                                                    <input type="text" className="form-control" id="name" value={data.name} readOnly />
                                                 </div>
                                                 <div className="col-md-3">
                                                     <label htmlFor="price" className="form-label">Price (in USD)</label>
@@ -60,7 +56,7 @@ function Ad() {
                                                 </div>
                                                 <div className="col-md-4">
                                                     <label htmlFor="phone" className="form-label">Telephone number</label>
-                                                    <input type="text" className="form-control" id="phone" value={data.User.phone} readOnly/>
+                                                    <input type="text" className="form-control" id="phone" value={data.User.phone} readOnly />
                                                 </div>
                                             </div>
                                             <div className="row mb-3">
@@ -82,11 +78,11 @@ function Ad() {
                                                 </div>
                                                 <div className="col-md-4">
                                                     <label htmlFor="name" className="form-label">Posted by</label>
-                                                    <input type="text" className="form-control" id="user" value={data.User.username} readOnly/>
+                                                    <input type="text" className="form-control" id="user" value={data.User.username} readOnly />
                                                 </div>
                                                 <div className="col-md-4">
                                                     <label htmlFor="city" className="form-label">City</label>
-                                                    <input type="text" className="form-control" id="city" value={data.city} readOnly/>
+                                                    <input type="text" className="form-control" id="city" value={data.city} readOnly />
                                                 </div>
                                             </div>
                                             <div className="row mb-3">
@@ -104,7 +100,7 @@ function Ad() {
                                             ) : (
                                                 <p hidden></p>
                                             )}
-                                    </form>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
