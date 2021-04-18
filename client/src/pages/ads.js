@@ -8,7 +8,8 @@ import { useHistory } from 'react-router-dom';
 import 'bootstrap';
 import debounce from 'lodash.debounce';
 import { parseJwt } from '../services/auth';
-import { getNumOfPages } from '../services/ads';
+import { removeAd } from '../services/ads';
+import { Redirect } from 'react-router-dom';
 
 export function Ads() {
 
@@ -105,6 +106,12 @@ export function Ads() {
     const editAd = (event, id) => {
         event.stopPropagation();
         history.push(`/ad/edit/${id}`);
+    }
+
+    const deleteAd = async (event, id) => {
+        event.stopPropagation();
+        await removeAd(id);
+        window.location.reload(false);
     }
 
     return (
@@ -206,7 +213,7 @@ export function Ads() {
                                     {parseJwt()?.username === ad.User.username ? (
                                         <td>
                                             <button type="button" onClick={(e) => editAd(e, ad.id)} className="btn btn-warning" key={ad.id}>Edit</button>
-                                            <button type="button" className="btn btn-danger mx-1">Delete</button>
+                                            <button type="button" className="btn btn-danger mx-1" onClick={(e) => deleteAd(e, ad.id)}>Delete</button>
                                         </td>
                                         ) : (
                                         <td></td>
@@ -215,7 +222,6 @@ export function Ads() {
                                 ))}
                             </tbody>
                         </table>
-
 
                         <nav aria-label="...">
                             <ul className="pagination justify-content-center pagination-lg">
