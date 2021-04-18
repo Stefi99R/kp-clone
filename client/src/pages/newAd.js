@@ -28,7 +28,7 @@ function NewAd() {
         setCategory(event.target.value);
     }
 
-    const { register, handleSubmit } = useForm({
+    const { register, handleSubmit, formState: {errors} } = useForm({
         defaultValues,
         mode: 'onSubmit'
     });
@@ -68,9 +68,10 @@ function NewAd() {
                 <input id="name"
                         name="name"
                         type="text"
-                        {...register('name')} 
+                        {...register('name', {required: true, minLength: 4, maxLength: 25})} 
                         className="form-control"
                         placeholder="Name of the ad..."/>
+                        {errors.name && "Please enter a valid product name (4-25 characters)"}
             </div>
             <div className="col-md-6">
                 <label htmlFor="url" className="form-label">URL of the image for the product</label>
@@ -97,13 +98,14 @@ function NewAd() {
                 <input id="city"
                     name="city"
                     type="text"
-                    {...register('city')} 
+                    {...register('city', {required: true, max: 100})} 
                     className="form-control"
                     placeholder="Place from which the product is being delivered..."/>
+                    {errors.city && "Please enter the city from which the product will be delivered. (up to 100 characters)"}
             </div>
             <div className="col-md-3">
                 <label htmlFor="category" className="form-label">Category</label>
-                    <select onChange={handleCategoryChange} value={category} className="form-select">
+                    <select onChange={handleCategoryChange} value={category} className="form-select" required>
                         <option value="" disabled>Choose a category:</option>
                         <option value="clothing">clothing</option>
                         <option value="tools">tools</option>
@@ -121,9 +123,10 @@ function NewAd() {
                 <input id="price"
                         name="price"
                         type="text"
-                        {...register('price')} 
+                        {...register('price', {required: true})} 
                         className="form-control"
                         placeholder="Price in USD..."/>
+                        {errors.price && "Please enter the price for the product."}
             </div>
             <div>
                 <button 
