@@ -11,8 +11,9 @@ const getAds = async (req, res, next) => {
             onlyMe = '',
             limit = 20,
             category = "",
-            price,
-            search = ""
+            price = "",
+            search = "",
+            offset = 0,
         } = req.query;
         
         const where = {};
@@ -31,22 +32,28 @@ const getAds = async (req, res, next) => {
         if (search !== "") {
             where.name = { [Op.iLike]: '%' + search + '%' }
         }
-        
-        const ads = await Ad.findAll({
+
+        const options = {
             group: ["Ad.id", "User.id"],
             where,
             order: [[sortBy, asc ? "ASC" : "DESC"]],
-            limit,
             include: [{
                 model: User,
                 attributes: ['username', 'phone'],
             }]
-        });
-        res.json(ads);
+        };
+        
+        const ads = await Ad.findAll({...options, limit, offset});
+        const total = await Ad.findAndCountAll(options);
+        res.json({ads: ads, total: Math.ceil(total.rows.length / limit)});
 
     } catch (error) {
         return next(error);
     }
+};
+
+const paginationAdInfo = async (req ,res, next) => {
+
 };
 
 const getAd = async (req, res, next) => {

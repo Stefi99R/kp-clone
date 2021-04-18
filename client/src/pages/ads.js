@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import 'bootstrap';
 import debounce from 'lodash.debounce';
 import { parseJwt } from '../services/auth';
+import { getNumOfPages } from '../services/ads';
 
 export function Ads() {
 
@@ -16,19 +17,19 @@ export function Ads() {
     const [ onlyMe, setOnlyMe ] = React.useState(false);
     const [ search, setSearch ] = React.useState('');
     const [ inputSearch, setInputSearch ] = React.useState('');
+    const [ offset, setOffset ] = React.useState(0);
     const history = useHistory();
 
     //const { user } = React.useContext(UserContext);
 
-    const [ page, setPage ] = React.useState(10);
+    const [ page, setPage ] = React.useState(1);
 
     const {
         status,
         data,
         error,
         isFetching,
-    } = useQuery(['ads', [onlyMe, price, category, search]], () => filter(onlyMe, price, category, search), { keepPreviousData: false});
-
+    } = useQuery(['ads', [onlyMe, price, category, search, offset]], () => filter(onlyMe, price, category, search, offset), { keepPreviousData: false});
 
     const filter = async (onlyMe, price, category, search) => {
 
@@ -62,6 +63,8 @@ export function Ads() {
             query += `${value}&`;
         }
 
+        query += `offset=${offset*20}`;
+
         const { data } = await privateApi(query);
         return data;
     }
@@ -69,6 +72,7 @@ export function Ads() {
     const handleCategoryChange = (event) => {
         setCategory(event.target.value)
     };
+
 
     const handleMine = () => {
         setOnlyMe(!onlyMe);
@@ -82,14 +86,25 @@ export function Ads() {
         setInputSearch(event.target.value);
     }
 
+    const handleOffset = (page) => {
+        setOffset(page);
+        console.log(offset);
+    }
+
     const handleSearch = 
         React.useCallback(debounce((event) => {
                 setSearch(event.target.value);
         }, 200), []);
+
     
 
     const openAd = (id) => {
         history.push(`/ad/${id}`);
+    }
+
+    const editAd = (event, id) => {
+        event.stopPropagation();
+        history.push(`/ad/edit/${id}`);
     }
 
     return (
@@ -145,7 +160,7 @@ export function Ads() {
                 </div>
             </div>
             </>
-                    {/* <button type="button" onClick={() => {setPage(page + 10)}}>more</button> */}
+            
             <div>
                 { status === "loading" ? (
                     <div className="d-flex justify-content-center">
@@ -159,7 +174,7 @@ export function Ads() {
                     </div>
                 ) : (
                     <>
-                    { data.length > 0 ? (
+                    { data.ads.length > 0 ? (
                         <div className="table-responsive">
                         <table className="table table-striped table-hover">
                             <thead>
@@ -174,7 +189,7 @@ export function Ads() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {data.map((ad) => (
+                                {data.ads.map((ad) => (
                                     <tr onClick={() => openAd(ad.id)} key={ad.id}>
                                     <th scope="row">
                                         <img src={ad.url} width="250" height="200"/>
@@ -188,9 +203,9 @@ export function Ads() {
                                     <td>
                                         <span className="badge bg-dark">{ad.count} times</span>
                                     </td>
-                                    {parseJwt().username === ad.User.username ? (
+                                    {parseJwt()?.username === ad.User.username ? (
                                         <td>
-                                            <button type="submit" className="btn btn-warning" onClick={() => {console.log(data)}}>Edit</button>
+                                            <button type="button" onClick={(e) => editAd(e, ad.id)} className="btn btn-warning" key={ad.id}>Edit</button>
                                             <button type="button" className="btn btn-danger mx-1">Delete</button>
                                         </td>
                                         ) : (
@@ -200,7 +215,19 @@ export function Ads() {
                                 ))}
                             </tbody>
                         </table>
-                        </div>
+
+
+                        <nav aria-label="...">
+                            <ul className="pagination justify-content-center pagination-lg">
+                                {[...Array(data.total)].map((x, i) =>
+                                    <li className="page-item" key={i}>
+                                        <a className="page-link" onClick={() => handleOffset(i)}>{i+1}</a>
+                                    </li>
+                                  )}
+                            </ul>
+                        </nav>
+                    </div>
+                        
                     ) : (
                         <div className="alert alert-warning my-5 text-center" role="alert">
                             No data to display!
