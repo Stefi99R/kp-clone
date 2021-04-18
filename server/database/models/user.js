@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     class User extends Model {
 
         static findByUsername(username, options) {
-            return User.findOne({where : { username }, ...options });
+            return User.findOne({ where: { username }, ...options });
         }
 
         static async hashPassword(password) {
@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
                 const salt = await genSalt();
                 const passwordHash = await hash(password, salt);
                 return passwordHash;
-            } catch(error) {
+            } catch (error) {
                 throw error;
             }
         }
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         static comaprePasswords(password, passwordHash) {
             try {
                 return compare(password, passwordHash);
-            } catch(error) {
+            } catch (error) {
                 return error;
             }
         }
@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
                 // other validations (like max and min length) can be added, according to someones will 
             },
             password: {
-                allowNull:true,
+                allowNull: true,
                 type: DataTypes.STRING,
                 exclude: true
             },

@@ -10,8 +10,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function LoginForm() {
-    const [ isSubmitting, setIsSubmitting ] = useState(false);
-    const [ requestError, setRequestError ] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [requestError, setRequestError] = useState('');
     const { setUser } = useContext(UserContext);
     const history = useHistory();
 
@@ -22,7 +22,7 @@ function LoginForm() {
     });
 
     const { register, handleSubmit, errors } = useForm({
-        defaultValues: {username: "", password: ""},
+        defaultValues: { username: "", password: "" },
     });
 
     async function onSubmit({ username, password }) {
@@ -40,7 +40,7 @@ function LoginForm() {
                 await setUser(user);
                 history.push(`/`);
             }
-        } catch(error) {
+        } catch (error) {
             setRequestError(error.response?.data?.errors);
             toast.error("Invalid data entered...");
         } finally {
@@ -50,45 +50,45 @@ function LoginForm() {
 
     return (
         <>
-        <ToastContainer style={{ width: "250px" }}/>
-        <h1 style={{textAlign: 'center'}}><b>Welcome back!</b></h1>
-        <form onSubmit={handleSubmit(onSubmit)} style={{justifyContent: 'center', alignItems: 'center'}}>
-            <div style={{justifyContent: 'center', alignItems: 'center', width: '50%', margin: '0 auto'}}>
-                <label htmlFor="username">Username</label>
-                <input placeholder="Enter your username..."
-                    id="username"
-                    name="username"
-                    type="username"
-                    {...register('username')} 
-                    className="form-control" 
-                    aria-describedby="emailHelp" required/>
+            <ToastContainer style={{ width: "250px" }} />
+            <h1 style={{ textAlign: 'center' }}><b>Welcome back!</b></h1>
+            <form onSubmit={handleSubmit(onSubmit)} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <div style={{ justifyContent: 'center', alignItems: 'center', width: '50%', margin: '0 auto' }}>
+                    <label htmlFor="username">Username</label>
+                    <input placeholder="Enter your username..."
+                        id="username"
+                        name="username"
+                        type="username"
+                        {...register('username')}
+                        className="form-control"
+                        aria-describedby="emailHelp" required />
                     <div className="invalid-feedback">
                         Please enter a username.
                     </div>
-            </div>
-            <br/>
-            <div style={{justifyContent: 'center', alignItems: 'center', width: '50%', margin: '0 auto'}}>
-                <label htmlFor="password">Password</label>
-                <input placeholder="Enter your password..."
-                    id="password"
-                    name="password"
-                    type="password"
-                    {...register('password')} 
-                    className="form-control" required/>
+                </div>
+                <br />
+                <div style={{ justifyContent: 'center', alignItems: 'center', width: '50%', margin: '0 auto' }}>
+                    <label htmlFor="password">Password</label>
+                    <input placeholder="Enter your password..."
+                        id="password"
+                        name="password"
+                        type="password"
+                        {...register('password')}
+                        className="form-control" required />
                     <div className="invalid-feedback">
                         Please enter a username.
                     </div>
-            </div>
-            <br/>
-            <div style={{justifyContent: 'center', alignItems: 'center', width: '50%', margin: '0 auto'}}>
-                <button 
-                    type="submit" 
-                    className="btn btn-primary btn-lg btn-block" 
-                    disabled={isSubmitting}
-                    style={{justifyContent: 'center', alignItems: 'center', width: '100%', margin: '0 auto'}}>Login</button>
-            </div>
-            
-        </form>
+                </div>
+                <br />
+                <div style={{ justifyContent: 'center', alignItems: 'center', width: '50%', margin: '0 auto' }}>
+                    <button
+                        type="submit"
+                        className="btn btn-primary btn-lg btn-block"
+                        disabled={isSubmitting}
+                        style={{ justifyContent: 'center', alignItems: 'center', width: '100%', margin: '0 auto' }}>Login</button>
+                </div>
+
+            </form>
         </>
     )
 }

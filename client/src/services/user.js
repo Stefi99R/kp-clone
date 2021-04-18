@@ -5,10 +5,10 @@ import { responseOk } from '../utils/responseOk';
 export async function fetchUserInfo() {
     try {
         const response = await privateApi.get('/users/me');
-        if(responseOk(response)) {
+        if (responseOk(response)) {
             return response.data;
         }
-    } catch(error) {
+    } catch (error) {
         console.error(error);
     }
 }

@@ -49,7 +49,7 @@ export const routes = [
     {
         path: "/ad/edit/:id",
         render: function AdEditRoute() {
-            return <PrivateRoute title="Edit ad" component={EditAd}/>
+            return <PrivateRoute title="Edit ad" component={EditAd} />
         }
     },
 
@@ -66,33 +66,33 @@ export function PrivateRoute({
     let user_login = null;
     useQuery('user', async () => {
         user_login = isAuthenticated ? (
-           setUser(user_login)
+            setUser(user_login)
         ) : (
             console.log("")
         )
     })
-    
+
     const username = parseJwt()?.username;
-    
+
     return (
         <>
             <title>{title}</title>
             <Route
                 {...props}
-                render = {() => 
+                render={() =>
                     isAuthenticated ? (
                         <>
-                        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" >
-                            <Navbar.Brand style={{padding: '0px 0px 0px 15px'}} href="/">
-                                <img
-                                    src={Logo}
-                                    className="d-inline-block align-top"
-                                    width='32'
-                                    height='32'
-                                    alt=""
-                                />
-                            </Navbar.Brand>
-                            <Navbar.Brand href="/">Kp Clone</Navbar.Brand>
+                            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" >
+                                <Navbar.Brand style={{ padding: '0px 0px 0px 15px' }} href="/">
+                                    <img
+                                        src={Logo}
+                                        className="d-inline-block align-top"
+                                        width='32'
+                                        height='32'
+                                        alt=""
+                                    />
+                                </Navbar.Brand>
+                                <Navbar.Brand href="/">Kp Clone</Navbar.Brand>
                                 <Nav className="container-fluid">
                                     <Nav.Link className="ml-auto" href="/">Home</Nav.Link>
                                     <Nav.Link className="mr-auto" href="/create">Create a new ad</Nav.Link>
@@ -103,27 +103,27 @@ export function PrivateRoute({
                                 </Nav>
                             </Navbar>
                             { Component === LoginForm || Component === RegisterForm ? (
-                                <Redirect to="/"/>
-                            ):(
+                                <Redirect to="/" />
+                            ) : (
                                 <div className="container my-5">
                                     <Component />
                                 </div>
                             )}
-                            
+
                         </>
                     ) : (
                         <>
                             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" >
-                            <Navbar.Brand style={{padding: '0px 0px 0px 15px'}} href="/">
-                                <img
-                                    src={Logo}
-                                    className="d-inline-block align-top"
-                                    width='32'
-                                    height='32'
-                                    alt=""
-                                />
-                            </Navbar.Brand>
-                            <Navbar.Brand href="/">Kp Clone</Navbar.Brand>
+                                <Navbar.Brand style={{ padding: '0px 0px 0px 15px' }} href="/">
+                                    <img
+                                        src={Logo}
+                                        className="d-inline-block align-top"
+                                        width='32'
+                                        height='32'
+                                        alt=""
+                                    />
+                                </Navbar.Brand>
+                                <Navbar.Brand href="/">Kp Clone</Navbar.Brand>
                                 <Nav className="mr-auto">
                                     <Nav.Link href="/">Home</Nav.Link>
                                 </Nav>
@@ -133,7 +133,7 @@ export function PrivateRoute({
                                 </Nav>
                             </Navbar>
                             {Component === NewAd ? (
-                                <Redirect to="/"/>
+                                <Redirect to="/" />
                             ) : (
                                 <div className="container my-5">
                                     <Component />

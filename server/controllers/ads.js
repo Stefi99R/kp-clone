@@ -3,19 +3,19 @@ const passport = require('passport');
 
 const router = express.Router();
 
-const { 
-    getAds, 
-    getAd, 
-    storeAd, 
-    updateAd, 
-    removeAd, 
-    countUp 
+const {
+    getAds,
+    getAd,
+    storeAd,
+    updateAd,
+    removeAd,
+    countUp
 } = require("./../services/ad");
 
 router.get("/", getAds);
 router.get("/:id", getAd);
 router.get("/count/:id", countUp);
-router.post("/", 
+router.post("/",
     [
         passport.authenticate("jwt", { session: false }),
     ],

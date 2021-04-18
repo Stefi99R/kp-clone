@@ -21,9 +21,9 @@ export async function loginUser({
     const {
         data: { token },
     } = response;
-    
+
     if (responseOk(response)) {
-        
+
         attachAuthorizationHeader(token);
         storeTokenInformationToCookies({
             token,
@@ -50,8 +50,8 @@ function storeTokenInformationToCookies({
 export function parseJwt() {
     const token = Cookies.get('access_token');
 
-    if (!token) { 
-        return; 
+    if (!token) {
+        return;
     }
 
     const base64Url = token.split('.')[1];

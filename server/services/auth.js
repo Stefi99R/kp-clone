@@ -24,7 +24,7 @@ const register = async (req, res, next) => {
 
         res.send({ msg: "Successfully registered.", user: userJson });
 
-    } catch(error) {
+    } catch (error) {
         return next(error);
     }
 };
@@ -44,15 +44,15 @@ const login = async (req, res, next) => {
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).send({ msg: "Invalid username or password."});
+            return res.status(400).send({ msg: "Invalid username or password." });
         }
 
         const token = jwt.sign(
-            {id: user.id, username: user.username, phone: user.phone },
+            { id: user.id, username: user.username, phone: user.phone },
             secret
         );
-        res.header("Authentication-token", token).send({token});
-    } catch(error) {
+        res.header("Authentication-token", token).send({ token });
+    } catch (error) {
         next(error);
     }
 };

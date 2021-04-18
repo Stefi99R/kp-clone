@@ -10,25 +10,25 @@ module.exports = {
       },
       username: {
         type: Sequelize.STRING,
-        unique:true
+        unique: true
       },
       password: {
         type: Sequelize.STRING,
-        allowNull:true
+        allowNull: true
       },
       phone: {
         type: Sequelize.STRING,
-        allowNull:false
+        allowNull: false
       },
       createdAt: {
         type: Sequelize.DATE,
-        allowNull:false,
-        defaultValue:Sequelize.NOW
+        allowNull: false,
+        defaultValue: Sequelize.NOW
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue:Sequelize.NOW
+        defaultValue: Sequelize.NOW
       },
       deletedAt: {
         allowNull: true,

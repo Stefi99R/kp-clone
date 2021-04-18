@@ -15,7 +15,7 @@ const getAds = async (req, res, next) => {
             search = "",
             offset = 0,
         } = req.query;
-        
+
         const where = {};
         // for filtering
         if (onlyMe !== '') {
@@ -42,17 +42,17 @@ const getAds = async (req, res, next) => {
                 attributes: ['username', 'phone'],
             }]
         };
-        
-        const ads = await Ad.findAll({...options, limit, offset});
+
+        const ads = await Ad.findAll({ ...options, limit, offset });
         const total = await Ad.findAndCountAll(options);
-        res.json({ads: ads, total: Math.ceil(total.rows.length / limit)});
+        res.json({ ads: ads, total: Math.ceil(total.rows.length / limit) });
 
     } catch (error) {
         return next(error);
     }
 };
 
-const paginationAdInfo = async (req ,res, next) => {
+const paginationAdInfo = async (req, res, next) => {
 
 };
 
@@ -103,15 +103,15 @@ const updateAd = async (req, res, next) => {
             }]
         });
         if (oldAd.User.id !== id) {
-            res.status(400).send({msg: "This account is not the owner of this ad"});
+            res.status(400).send({ msg: "This account is not the owner of this ad" });
         }
 
         const updateAd = req.body;
-        const ad = await Ad.update(updateAd, { where: { id: adId }});
+        const ad = await Ad.update(updateAd, { where: { id: adId } });
 
         res.json(ad);
 
-    } catch(error) {
+    } catch (error) {
         return next(error);
     }
 };
@@ -127,12 +127,12 @@ const removeAd = async (req, res, next) => {
             }]
         });
         if (oldAd === null) {
-            res.status(400).send({msg: "There is no ad with that id!"});
+            res.status(400).send({ msg: "There is no ad with that id!" });
         } else if (oldAd.User.id !== id) {
-            res.status(400).send({msg: "This account is not the owner of this ad."});
+            res.status(400).send({ msg: "This account is not the owner of this ad." });
         }
 
-        await Ad.destroy({ where: { id: adId }});
+        await Ad.destroy({ where: { id: adId } });
 
         res.json({
             success: "true",
@@ -148,10 +148,10 @@ const removeAd = async (req, res, next) => {
 const countUp = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const ad = await Ad.increment({count: +1}, { where: {id} });
+        const ad = await Ad.increment({ count: +1 }, { where: { id } });
 
         res.json(ad);
-    } catch(error) {
+    } catch (error) {
         return next(error);
     }
 };

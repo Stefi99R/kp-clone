@@ -9,7 +9,7 @@ const ads = [...Array(100)].map(() => ({
     url: `${faker.image.technics()}?random=${Date.now()}`,
     price: faker.commerce.price(),
     category: faker.random.arrayElement(categoriesEnum),
-    userId: faker.datatype.number({ min:1, max:9}),
+    userId: faker.datatype.number({ min: 1, max: 9 }),
     city: faker.address.city(),
     count: faker.datatype.number(1000),
     createdAt: faker.date.past(),
@@ -17,11 +17,11 @@ const ads = [...Array(100)].map(() => ({
 }))
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-      return queryInterface.bulkInsert("Ads", [...ads]);
-  },
+    up: (queryInterface, Sequelize) => {
+        return queryInterface.bulkInsert("Ads", [...ads]);
+    },
 
-  down: (queryInterface, Sequelize) => {
-      return queryInterface.bulkDelete("Ads");
-  }
+    down: (queryInterface, Sequelize) => {
+        return queryInterface.bulkDelete("Ads");
+    }
 };

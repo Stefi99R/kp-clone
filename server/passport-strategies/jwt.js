@@ -18,7 +18,7 @@ const jwtHandler = async (jwt_payload, done) => {
         } else {
             return done(null, false);
         }
-    } catch(error) {
+    } catch (error) {
         return done(error, false);
     }
 };

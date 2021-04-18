@@ -4,9 +4,9 @@ const { User } = require('../database/models');
 
 const getUsers = async (req, res, next) => {
     try {
-        const users = await User.findAll({ attributes: {exclude: ['password']} });
+        const users = await User.findAll({ attributes: { exclude: ['password'] } });
         res.json(users);
-    } catch(error) {
+    } catch (error) {
         return next(error);
     }
 };
@@ -14,9 +14,9 @@ const getUsers = async (req, res, next) => {
 const getUser = async (req, res, next) => {
     try {
         const { id } = req.user;
-        const user = await User.findByPk(id, { attributes: {exclude: ['password']} });
+        const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
         res.json(user);
-    } catch(error) {
+    } catch (error) {
         return next(error);
     }
 };

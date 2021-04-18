@@ -17,21 +17,21 @@ function App() {
   return (
     <Router history={history}>
       <UserContext.Provider value={value}>
-          <QueryClientProvider client={queryClient}>
-            <Switch>
+        <QueryClientProvider client={queryClient}>
+          <Switch>
             {/* for entered routes */}
-              {routes.map((props, key) => (
-                <Route exact key={key} {...props} />
-              ))}
-              { /* for every route that is not entered */}
-              <Route path="*">
-                <NotFound />
-              </Route>
-            </Switch> 
-          </QueryClientProvider>
+            {routes.map((props, key) => (
+              <Route exact key={key} {...props} />
+            ))}
+            { /* for every route that is not entered */}
+            <Route path="*">
+              <NotFound />
+            </Route>
+          </Switch>
+        </QueryClientProvider>
       </UserContext.Provider>
     </Router>
   );
 }
 
-export {App};
+export { App };

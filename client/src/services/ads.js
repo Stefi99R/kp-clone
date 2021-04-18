@@ -5,10 +5,10 @@ export async function getAds() {
     let data = [];
     try {
         const response = await privateApi('/ads');
-        if(responseOk(response)) {
+        if (responseOk(response)) {
             data = response.data;
         }
-    } catch(err) {
+    } catch (err) {
         console.error(err);
     }
     return data;
@@ -18,10 +18,10 @@ export async function getAd(id) {
     let data = [];
     try {
         const response = await privateApi(`/ads/${id}`);
-        if(responseOk(response)) {
+        if (responseOk(response)) {
             data = response.data;
         }
-    } catch(err) {
+    } catch (err) {
         console.error(err);
     }
     return data;
@@ -34,7 +34,7 @@ export async function countUp(id) {
         if (responseOk(response)) {
             data = data.response;
         }
-    } catch(err) {
+    } catch (err) {
         console.error(err);
     }
     return data;
@@ -43,11 +43,11 @@ export async function countUp(id) {
 export async function createAd(reqData) {
     let data = [];
     try {
-        const response = await privateApi.post(`/ads`,{...reqData});
+        const response = await privateApi.post(`/ads`, { ...reqData });
         if (responseOk(response)) {
             data = response.data;
         }
-    } catch(error) {
+    } catch (error) {
         console.error(error);
     }
     return data;
@@ -56,11 +56,11 @@ export async function createAd(reqData) {
 export async function updateAd(reqData) {
     let data = [];
     try {
-        const response = await privateApi.patch(`/ads/${reqData.id}`, {...reqData});
+        const response = await privateApi.patch(`/ads/${reqData.id}`, { ...reqData });
         if (responseOk(response)) {
             data = response.data;
         }
-    } catch(error) {
+    } catch (error) {
         console.error(error);
     }
     return data;
@@ -73,7 +73,7 @@ export async function removeAd(id) {
         if (responseOk(response)) {
             data = response.data;
         }
-    } catch(err) {
+    } catch (err) {
         console.log(err);
     }
     return data;
