@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import { useAd } from '../hooks/useAds';
 import { useForm } from 'react-hook-form';
 import { updateAd } from '../services/ads';
@@ -156,7 +156,7 @@ export function EditAd() {
                     style={{justifyContent: 'center', alignItems: 'center', width: '100%', margin: '0 auto'}}>Update my ad</button>
                 </div>
             ) : (
-                <p hidden></p>
+                <Redirect to="/"/>
             )}
             
         </form>
