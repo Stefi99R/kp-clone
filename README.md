@@ -3,16 +3,16 @@ A clone of a popular e-commerce service in Serbia called KupujemProdajem, create
 
 ## Features
 Fully responsive application with various functionalities like:
-    1. Login/Sign out
-    2. Sign up
-    3. Home page with clear, table display of all the ads
-    4. Pagination
-    5. Form validations with toasts
-    7. Various filters (contains search, based on category, price, "Only mine" (which displays only ads from the current user))
-    8. Detailed view of one ad, which contains detailed information about an ad, along with the data about user that are not sensitive
-    9. Logged users who have created ads can easily edit the data about their ads from the Edit page
-    10. Route guards
-    11. Logged users can delete the ads they posted
+1. Login/Sign out
+2. Sign up
+3. Home page with clear, table display of all the ads
+4. Pagination
+5. Form validations with toasts
+6. Various filters (contains search, based on category, price, "Only mine" (which displays only ads from the current user))
+7. Detailed view of one ad, which contains detailed information about an ad, along with the data about user that are not sensitive
+8. Logged users who have created ads can easily edit the data about their ads from the Edit page
+9. Route guards
+10. Logged users can delete the ads they posted
     And many more...
 
 ### Requirements
