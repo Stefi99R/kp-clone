@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { removeCookies } from './config/axios-instance';
 import { UserContext } from './contexts/UserContext';
 import { Ads } from './pages/ads';
@@ -49,7 +49,7 @@ export const routes = [
     {
         path: "/ad/edit/:id",
         render: function AdEditRoute() {
-            return <PrivateRoute title="Edit ad" component={EditAd} />
+            return <PrivateRoute title="Edit ad" component={EditAd}/>
         }
     },
 
@@ -73,6 +73,7 @@ export function PrivateRoute({
     })
     
     const username = parseJwt()?.username;
+
     return (
         <>
             <title>{title}</title>
@@ -101,9 +102,14 @@ export function PrivateRoute({
                                     <Nav.Link className="ml-auto" href="/login" onSelect={() => removeCookies()}>Sign out</Nav.Link>
                                 </Nav>
                             </Navbar>
-                            <div className="container my-5">
-                                <Component />
-                            </div>
+                            { Component === LoginForm || Component === RegisterForm ? (
+                                <Redirect to="/"/>
+                            ):(
+                                <div className="container my-5">
+                                    <Component />
+                                </div>
+                            )}
+                            
                         </>
                     ) : (
                         <>
@@ -126,9 +132,13 @@ export function PrivateRoute({
                                     <Nav.Link href="/register">Sign up</Nav.Link>
                                 </Nav>
                             </Navbar>
-                            <div className="container my-5">
-                                <Component />
-                            </div>
+                            {Component === NewAd ? (
+                                <Redirect to="/"/>
+                            ) : (
+                                <div className="container my-5">
+                                    <Component />
+                                </div>
+                            )}
                         </>
                     )
                 }
