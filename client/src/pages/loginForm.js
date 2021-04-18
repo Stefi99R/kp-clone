@@ -6,12 +6,20 @@ import { useForm } from 'react-hook-form';
 import { fetchUserInfo } from '../services/user';
 import { loginUser } from '../services/auth';
 import { useHistory } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function LoginForm() {
     const [ isSubmitting, setIsSubmitting ] = useState(false);
     const [ requestError, setRequestError ] = useState('');
     const { setUser } = useContext(UserContext);
     const history = useHistory();
+
+    toast.configure({
+        autoClose: 4000,
+        draggable: false,
+        bodyClassName: "text-sm font-white font-med block p-10"
+    });
 
     const { register, handleSubmit, errors } = useForm({
         defaultValues: {username: "", password: ""},
@@ -34,6 +42,7 @@ function LoginForm() {
             }
         } catch(error) {
             setRequestError(error.response?.data?.errors);
+            toast.error("Invalid data entered...");
         } finally {
             setIsSubmitting(false);
         }
@@ -41,6 +50,7 @@ function LoginForm() {
 
     return (
         <>
+        <ToastContainer style={{ width: "250px" }}/>
         <h1 style={{textAlign: 'center'}}><b>Welcome back!</b></h1>
         <form onSubmit={handleSubmit(onSubmit)} style={{justifyContent: 'center', alignItems: 'center'}}>
             <div style={{justifyContent: 'center', alignItems: 'center', width: '50%', margin: '0 auto'}}>

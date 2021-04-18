@@ -35,8 +35,10 @@ export async function loginUser({
 
 export async function registerUser(data) {
     const response = await privateApi.post(`/auth/register`, data);
-    const { user } = response.data;
-    return user;
+    if (responseOk(response)) {
+        return response.data;
+    }
+    return new Error(response.message)
 }
 
 function storeTokenInformationToCookies({

@@ -73,7 +73,7 @@ export function PrivateRoute({
     })
     
     const username = parseJwt()?.username;
-
+    
     return (
         <>
             <title>{title}</title>

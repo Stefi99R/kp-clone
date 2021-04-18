@@ -71,7 +71,7 @@ function NewAd() {
                         {...register('name', {required: true, minLength: 4, maxLength: 25})} 
                         className="form-control"
                         placeholder="Name of the ad..."/>
-                        {errors.name && "Please enter a valid product name (4-25 characters)"}
+                        <span style={{color: 'red'}}>{errors.name && "Please enter a valid product name (4-25 characters)"}</span>
             </div>
             <div className="col-md-6">
                 <label htmlFor="url" className="form-label">URL of the image for the product</label>
@@ -101,7 +101,7 @@ function NewAd() {
                     {...register('city', {required: true, max: 100})} 
                     className="form-control"
                     placeholder="Place from which the product is being delivered..."/>
-                    {errors.city && "Please enter the city from which the product will be delivered. (up to 100 characters)"}
+                    <span style={{color: 'red'}}>{errors.city && "Please enter the city from which the product will be delivered. (up to 100 characters)"}</span>
             </div>
             <div className="col-md-3">
                 <label htmlFor="category" className="form-label">Category</label>
@@ -126,7 +126,7 @@ function NewAd() {
                         {...register('price', {required: true})} 
                         className="form-control"
                         placeholder="Price in USD..."/>
-                        {errors.price && "Please enter the price for the product."}
+                        <span style={{color: 'red'}}>{errors.price && "Please enter the price for the product."}</span>
             </div>
             <div>
                 <button 
