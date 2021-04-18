@@ -6,7 +6,7 @@ import { updateAd } from '../services/ads';
 import { useHistory } from 'react-router-dom';
 import { parseJwt } from '../services/auth';
 
-export function EditAd() {
+function EditAd() {
 
     const { id } = useParams();
     const { status, data: ad, error, isFetching } = useAd(id);
@@ -165,3 +165,6 @@ export function EditAd() {
     </>
     );
 };
+
+export { EditAd };
+

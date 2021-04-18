@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { registerUser } from "../services/auth";
 import { useHistory } from 'react-router-dom';
 
-export function RegisterForm() {
+function RegisterForm() {
 
     const [ isSubmitting, setIsSubmitting ] = React.useState(false);
     const [ requestError, setRequestError ] = React.useState('');
@@ -94,3 +94,6 @@ export function RegisterForm() {
         </>
       );
 }
+
+export { RegisterForm };
+

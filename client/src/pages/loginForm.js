@@ -7,7 +7,7 @@ import { fetchUserInfo } from '../services/user';
 import { loginUser } from '../services/auth';
 import { useHistory } from 'react-router-dom';
 
-export function LoginForm() {
+function LoginForm() {
     const [ isSubmitting, setIsSubmitting ] = useState(false);
     const [ requestError, setRequestError ] = useState('');
     const { setUser } = useContext(UserContext);
@@ -82,3 +82,5 @@ export function LoginForm() {
         </>
     )
 }
+
+export { LoginForm };

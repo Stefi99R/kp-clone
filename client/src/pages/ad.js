@@ -4,20 +4,22 @@ import { UserContext } from '../contexts/UserContext';
 import { useAd } from '../hooks/useAds';
 import { removeAd } from '../services/ads';
 import { useHistory } from 'react-router-dom';
+import { parseJwt } from '../services/auth';
 
-export function Ad() {
+function Ad() {
 
     const { id } = useParams()
     const { status, data, error, isFetching } = useAd(id);
     const history = useHistory();
     const [ category, setCategory ] = React.useState('');
 
-    console.log(data)
-    
-
     const deleteAd = async (id) => {
         await removeAd(id);
         history.push('/');
+    }
+
+    const editAd = (id) => {
+        history.push(`/ad/edit/${id}`);
     }
 
     const { user } = React.useContext(UserContext);
@@ -26,42 +28,46 @@ export function Ad() {
         <div>
             <div>
                 {status === "loading" ? (
-                    <div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status" style={{marginTop: 200 + 'px'}}>
-                            <span class="visually-hidden">Loading...</span>
+                    <div className="d-flex justify-content-center">
+                        <div className="spinner-border" role="status" style={{marginTop: 200 + 'px'}}>
+                            <span className="visually-hidden">Loading...</span>
                         </div>
                     </div>
                 ) : status === "error" ? (
-                    <div class="alert alert-danger" role="alert">
+                    <div className="alert alert-danger" role="alert">
                         Error: {error}
                     </div>
                 ) : (
                     <>
 
 
-                <div class="card">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src={data.url} class="card-img-top" alt="" width="300" height="350"/>
+                <div className="card">
+                        <div className="row g-0">
+                            <div className="col-md-4">
+                                <img src={data.url} className="card-img-top" alt="" width="500" height="390"/>
                             </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <form class="row g-3">
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <label for="name" class="form-label">{data.name}</label>
-                                                    <input type="text" class="form-control" id="name" value={data.name} />
+                            <div className="col-md-8">
+                                <div className="card-body">
+                                    <form className="row g-3">
+                                            <div className="row mb-3 mt-3">
+                                                <div className="col-md-5">
+                                                    <label htmlFor="name" className="form-label">Name of the product</label>
+                                                    <input type="text" className="form-control" id="name" value={data.name} readOnly/>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <label for="price" class="form-label">Price (USD)</label>
-                                                    <input type="number" class="form-control" id="price" value={data.price} disabled />
+                                                <div className="col-md-3">
+                                                    <label htmlFor="price" className="form-label">Price (in USD)</label>
+                                                    <input type="number" className="form-control" id="price" value={data.price} readOnly />
+                                                </div>
+                                                <div className="col-md-4">
+                                                    <label htmlFor="phone" className="form-label">Telephone number</label>
+                                                    <input type="text" className="form-control" id="phone" value={data.User.phone} readOnly/>
                                                 </div>
                                             </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-4">
-                                                    <label for="category" class="form-label">{data.category}</label>
+                                            <div className="row mb-3">
+                                                <div className="col-md-4">
+                                                    <label htmlFor="category" className="form-label">{data.category}</label>
 
-                                                    <select id="category" class="form-select" value={data.category} disabled>
+                                                    <select id="category" className="form-select" value={data.category} readOnly>
                                                         <option value="" disabled>Choose a category:</option>
                                                         <option value="clothing">clothing</option>
                                                         <option value="tools">tools</option>
@@ -74,26 +80,26 @@ export function Ad() {
                                                         <option value="technology">technology</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <label for="name" class="form-label">Posted by</label>
-                                                    <input type="text" class="form-control" id="user" value={data.User.username}/>
+                                                <div className="col-md-4">
+                                                    <label htmlFor="name" className="form-label">Posted by</label>
+                                                    <input type="text" className="form-control" id="user" value={data.User.username} readOnly/>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <label for="city" class="form-label">City</label>
-                                                    <input type="text" class="form-control" id="city" value={data.city} />
+                                                <div className="col-md-4">
+                                                    <label htmlFor="city" className="form-label">City</label>
+                                                    <input type="text" className="form-control" id="city" value={data.city} readOnly/>
                                                 </div>
                                             </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-12">
-                                                    <label for="description" class="form-label">Description</label>
-                                                    <textarea class="form-control" id="description" rows="3" disabled>{data.description}
+                                            <div className="row mb-3">
+                                                <div className="col-md-12">
+                                                    <label htmlFor="description" className="form-label">Product description</label>
+                                                    <textarea className="form-control" id="description" rows="3" value={data.description} readOnly>
                                                     </textarea>
                                                 </div>
                                             </div>
-                                            {user?.id === data.userId ? (
-                                                <div class="col-12">
-                                                    <button type="submit" class="btn btn-warning">Edit</button>
-                                                    <button type="button" class="btn btn-danger mx-1">Delete</button>
+                                            {parseJwt()?.username === data.User.username ? (
+                                                <div className="col-12">
+                                                    <button type="submit" className="btn btn-warning" onClick={(e) => editAd(id)}>Edit</button>
+                                                    <button type="button" className="btn btn-danger mx-1" onClick={() => deleteAd(id)}>Delete</button>
                                                 </div>
                                             ) : (
                                                 <p hidden></p>
@@ -104,32 +110,11 @@ export function Ad() {
                             </div>
                         </div>
                         <div>{isFetching ? "Background Updating..." : ""}</div>
-
-
-
-                        {/* <div>
-                            <h1>{data.name}</h1>
-                            <div>
-                                <img src={data.url} alt="image_ad"/>
-                                <p>{data.name}</p>
-                                <p>Price: ${data.price}</p>
-                                <p>Viewed: {data.count} times.</p>
-                                <p>Category: {data.category}</p>
-                                <p>From: {data.city}</p>
-                            </div>
-                            <div>
-                                <h2>Username: {data.User.username}</h2>
-                                <p>User's phone number: {data.User.phone}</p>
-                            </div>
-                        </div>
-                        <div>
-                             (<Link to={`/ad/edit/${id}`}>Edit</Link>)
-                            {user?.id === data.userId ? <button onClick={() => deleteAd(id)}>Delete</button> : ""}
-                        </div>
-                         */}
                     </>
                 )}
             </div>
         </div>
     );
 };
+
+export { Ad };

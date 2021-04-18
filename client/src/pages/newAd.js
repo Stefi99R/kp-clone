@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { createAd } from '../services/ads';
 import { useHistory } from 'react-router-dom';
 
-export function NewAd() {
+function NewAd() {
 
     const history = useHistory();
     const [ isSubmitting, setIsSubmitting ] = React.useState(false);
@@ -25,8 +25,7 @@ export function NewAd() {
 
     const handleCategoryChange = (event) => {
         
-        setCategory(event.target.value)
-        console.log(category)
+        setCategory(event.target.value);
     }
 
     const { register, handleSubmit } = useForm({
@@ -137,3 +136,5 @@ export function NewAd() {
         </>
     );
 }
+
+export { NewAd };

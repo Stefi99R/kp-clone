@@ -11,7 +11,7 @@ import { parseJwt } from '../services/auth';
 import { removeAd } from '../services/ads';
 import { Redirect } from 'react-router-dom';
 
-export function Ads() {
+function Ads() {
 
     const [price, setPrice ] = React.useState('');
     const [ category, setCategory ] = React.useState('');
@@ -247,3 +247,5 @@ export function Ads() {
         </div>
     );
 }
+
+export { Ads };
