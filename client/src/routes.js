@@ -82,7 +82,7 @@ export function PrivateRoute({
                 render={() =>
                     isAuthenticated ? (
                         <>
-                            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" >
+                            <Navbar fixed='top' collapseOnSelect expand="lg" bg="dark" variant="dark">
                                 <Navbar.Brand style={{ padding: '0px 0px 0px 15px' }} href="/">
                                     <img
                                         src={Logo}
@@ -105,15 +105,14 @@ export function PrivateRoute({
                             { Component === LoginForm || Component === RegisterForm ? (
                                 <Redirect to="/" />
                             ) : (
-                                <div className="container my-5">
+                                <div className="container" style={{marginTop: "150px"}}>
                                     <Component />
                                 </div>
                             )}
-
                         </>
                     ) : (
                         <>
-                            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" >
+                            <Navbar fixed="top" collapseOnSelect expand="lg" bg="dark" variant="dark" >
                                 <Navbar.Brand style={{ padding: '0px 0px 0px 15px' }} href="/">
                                     <img
                                         src={Logo}
@@ -135,7 +134,7 @@ export function PrivateRoute({
                             {Component === NewAd ? (
                                 <Redirect to="/" />
                             ) : (
-                                <div className="container my-5">
+                                <div className="container" style={{marginTop: "150px"}}>
                                     <Component />
                                 </div>
                             )}
