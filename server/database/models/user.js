@@ -11,24 +11,6 @@ module.exports = (sequelize, DataTypes) => {
             return User.findOne({ where: { username }, ...options });
         }
 
-        static async hashPassword(password) {
-            try {
-                const salt = await genSalt();
-                const passwordHash = await hash(password, salt);
-                return passwordHash;
-            } catch (error) {
-                throw error;
-            }
-        }
-
-        static comaprePasswords(password, passwordHash) {
-            try {
-                return compare(password, passwordHash);
-            } catch (error) {
-                return error;
-            }
-        }
-
         static associate(models) {
             User.hasMany(models.Ad, {
                 sourceKey: "id",

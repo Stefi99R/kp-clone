@@ -125,8 +125,9 @@ function NewAd() {
                         type="text"
                         {...register('price', { required: true })}
                         className="form-control"
-                        placeholder="Price in USD..." />
-                    <span style={{ color: 'red' }}>{errors.price && "Please enter the price for the product."}</span>
+                        placeholder="Price in USD..." 
+                        pattern="[0-9]*"/>
+                    <span style={{ color: 'red' }}>{errors.price && "Please enter valid price for the product."}</span>
                 </div>
                 <div>
                     <button

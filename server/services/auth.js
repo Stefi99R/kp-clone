@@ -20,9 +20,8 @@ const register = async (req, res, next) => {
         user.password = await bcrypt.hash(user.password, salt);
 
         user = await User.create(user);
-        const userJson = user.toJSON();
 
-        res.send({ msg: "Successfully registered.", user: userJson });
+        res.status(200).send({ msg: "Successfully registered."});
 
     } catch (error) {
         return next(error);
@@ -49,7 +48,8 @@ const login = async (req, res, next) => {
 
         const token = jwt.sign(
             { id: user.id, username: user.username, phone: user.phone },
-            secret
+            secret, 
+            //{expiresIn: '2h'}
         );
         res.header("Authentication-token", token).send({ token });
     } catch (error) {

@@ -1,10 +1,10 @@
 import { Route, Redirect } from 'react-router-dom';
 import { removeCookies } from './config/axios-instance';
-import { UserContext } from './contexts/UserContext';
+//import { UserContext } from './contexts/UserContext';
 import { Ads } from './pages/ads';
-import { useQuery } from 'react-query';
+//import { useQuery } from 'react-query';
 import Cookies from 'js-cookie';
-import { useContext } from 'react';
+//import { useContext } from 'react';
 import { Ad } from './pages/ad';
 import { LoginForm } from './pages/loginForm';
 import { RegisterForm } from './pages/registerForm';
@@ -61,16 +61,16 @@ export function PrivateRoute({
     ...props
 }) {
     const isAuthenticated = Cookies.get('access_token');
-    const { user, setUser } = useContext(UserContext);
+    //const { user, setUser } = useContext(UserContext);
 
-    let user_login = null;
-    useQuery('user', async () => {
+    //let user_login = null;
+    /*useQuery('user', async () => {
         user_login = isAuthenticated ? (
             setUser(user_login)
         ) : (
             console.log("")
         )
-    })
+    })*/
 
     const username = parseJwt()?.username;
 

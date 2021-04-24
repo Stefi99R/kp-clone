@@ -26,6 +26,7 @@ function Ads() {
         isFetching,
     } = useQuery(['ads', [onlyMe, price, category, search, offset]], () => filter(onlyMe, price, category, search, offset), { keepPreviousData: false });
 
+    //var temp_query = ''
     const filter = async (onlyMe, price, category, search) => {
 
         let query = '/ads?';
@@ -57,7 +58,7 @@ function Ads() {
         for (const [key, value] of Object.entries(where)) {
             query += `${value}&`;
         }
-
+        
         query += `offset=${offset * 20}`;
 
         const { data } = await privateApi(query);

@@ -1,6 +1,6 @@
 //import './App.css';
 import React, { useMemo, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import { routes } from './routes';
 import { NotFound } from './pages/notFound';
 import { UserContext } from './contexts/UserContext';

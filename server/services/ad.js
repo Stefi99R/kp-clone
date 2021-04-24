@@ -52,10 +52,6 @@ const getAds = async (req, res, next) => {
     }
 };
 
-const paginationAdInfo = async (req, res, next) => {
-
-};
-
 const getAd = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -76,7 +72,7 @@ const storeAd = async (req, res, next) => {
     const { id } = req.user;
     try {
         const { name, description, url, price, category, city } = req.body;
-        const store = await Ad.create({
+        await Ad.create({
             name,
             description,
             url,
@@ -86,7 +82,7 @@ const storeAd = async (req, res, next) => {
             count: 0,
             userId: id
         });
-        res.json(store);
+        res.status(200).json({ msg: "Ad successfully created!" });
     } catch (error) {
         return next(error);
     }
@@ -102,14 +98,17 @@ const updateAd = async (req, res, next) => {
                 attributes: ['id']
             }]
         });
-        if (oldAd.User.id !== id) {
+        
+        if (oldAd === null) {
+            res.status(400).send({ msg: "There is no ad with that id!" });
+        } else if (oldAd.User.id !== id) {
             res.status(400).send({ msg: "This account is not the owner of this ad" });
         }
 
         const updateAd = req.body;
-        const ad = await Ad.update(updateAd, { where: { id: adId } });
+        await Ad.update(updateAd, { where: { id: adId } });
 
-        res.json(ad);
+        res.status(200).json({ msg: "Ad successfully updated!" });
 
     } catch (error) {
         return next(error);
@@ -150,7 +149,7 @@ const countUp = async (req, res, next) => {
         const { id } = req.params;
         const ad = await Ad.increment({ count: +1 }, { where: { id } });
 
-        res.json(ad);
+        res.status(200).json({msg: "View count successfully incremented!"});
     } catch (error) {
         return next(error);
     }
