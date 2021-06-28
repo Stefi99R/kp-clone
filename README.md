@@ -32,6 +32,6 @@ Latest stable version of **Node.js** and **PostgreSQL**.
 **NOTE** This will create two tables (ads and users)
 
 ### Seeding
-1. Inside of *server* folder via terminal enter enter command `npm run seed`
-**NOTE** This will seed 10 users and 100 ads into their databases
+1. Inside of *server* folder via terminal enter command `npm run seed`
+**NOTE** This will seed 10 users and 100 ads into their tables in the database
 ***NOTE*** Attempting to use passwords, along with the usernames, from a table created in this way will result in error, as those passwords are not hashed
